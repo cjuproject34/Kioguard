@@ -1,0 +1,37 @@
+{
+  "documents": [
+    {
+      "file": "KioGuard_의도정의_경계기준_v1.2.md",
+      "lines": 224,
+      "characters": 10926,
+      "tables": 11
+    },
+    {
+      "file": "KioGuard_48발화_수정검토표_v1.2.md",
+      "lines": 100,
+      "characters": 7731,
+      "tables": 3
+    },
+    {
+      "file": "KioGuard_미결정사항_및_문맥확인목록_v1.2.md",
+      "lines": 88,
+      "characters": 4560,
+      "tables": 3
+    }
+  ],
+  "review_rows": 48,
+  "source_unique_texts": 38,
+  "user_specified_rows": [
+    "FD-03",
+    "FD-08",
+    "FD-22",
+    "FD-24",
+    "GV-09",
+    "GV-19",
+    "GV-20"
+  ],
+  "intent_definitions": 14,
+  "preserved_existing_documents": 8,
+  "errors": [],
+  "model_execution_performed": false
+}

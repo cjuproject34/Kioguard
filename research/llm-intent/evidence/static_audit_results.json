@@ -1,0 +1,216 @@
+{
+  "train_count": 126,
+  "train_distribution": {
+    "주문": 28,
+    "옵션변경": 20,
+    "매장/포장": 12,
+    "결제": 14,
+    "할인/쿠폰": 12,
+    "취소/처음으로": 12,
+    "도움요청": 16,
+    "정보문의": 12
+  },
+  "test_count": 48,
+  "unique_test": 38,
+  "unique_normalized_test": 37,
+  "overlap_normalized": [],
+  "rule_correct": 45,
+  "rule_routes": {
+    "confident": 33,
+    "multi_match": 13,
+    "no_match": 2
+  },
+  "rule_wrong": [
+    {
+      "ID": "FD-11",
+      "발화문": "아이스 아메리카노 디카페인",
+      "정답의도": "주문",
+      "pred": "옵션변경",
+      "route": "confident",
+      "correct": false
+    },
+    {
+      "ID": "GV-01",
+      "발화문": "민원서류 떼러왔어요",
+      "정답의도": "주문",
+      "pred": "미분류",
+      "route": "no_match",
+      "correct": false
+    },
+    {
+      "ID": "GV-03",
+      "발화문": "민원서류 떼러왔어요",
+      "정답의도": "주문",
+      "pred": "미분류",
+      "route": "no_match",
+      "correct": false
+    }
+  ],
+  "rule_probes": {
+    "결제하지 말고 처음으로 돌아갈래": [
+      "결제",
+      "multi_match"
+    ],
+    "생일 카드 문구 알려줘": [
+      "결제",
+      "confident"
+    ],
+    "취소하지 마세요": [
+      "취소/처음으로",
+      "confident"
+    ],
+    "주문하지 말고 도와주세요": [
+      "옵션변경",
+      "multi_match"
+    ],
+    "오늘 날씨 알려줘": [
+      "미분류",
+      "no_match"
+    ]
+  },
+  "parser_probes": {
+    "주문이 아니라 결제": "주문",
+    "결제가 아닌 주문": "주문",
+    "결제 또는 취소": "결제",
+    "- 결제: 결제수단·영수증 ... (truncated)": "결제",
+    "취소": "취소/처음으로"
+  },
+  "q4_f16_disagreements": [
+    {
+      "id": "FD-06",
+      "q4": {
+        "id": "FD-06",
+        "gold": "옵션변경",
+        "pred": "주문",
+        "ok": false
+      },
+      "f16": {
+        "id": "FD-06",
+        "gold": "옵션변경",
+        "pred": "옵션변경",
+        "ok": true
+      }
+    },
+    {
+      "id": "FD-19",
+      "q4": {
+        "id": "FD-19",
+        "gold": "할인/쿠폰",
+        "pred": "할인/쿠폰",
+        "ok": true
+      },
+      "f16": {
+        "id": "FD-19",
+        "gold": "할인/쿠폰",
+        "pred": "정보문의",
+        "ok": false
+      }
+    },
+    {
+      "id": "GV-01",
+      "q4": {
+        "id": "GV-01",
+        "gold": "주문",
+        "pred": "주문",
+        "ok": true
+      },
+      "f16": {
+        "id": "GV-01",
+        "gold": "주문",
+        "pred": "미분류",
+        "ok": false
+      }
+    },
+    {
+      "id": "GV-02",
+      "q4": {
+        "id": "GV-02",
+        "gold": "주문",
+        "pred": "주문",
+        "ok": true
+      },
+      "f16": {
+        "id": "GV-02",
+        "gold": "주문",
+        "pred": "미분류",
+        "ok": false
+      }
+    },
+    {
+      "id": "GV-03",
+      "q4": {
+        "id": "GV-03",
+        "gold": "주문",
+        "pred": "주문",
+        "ok": true
+      },
+      "f16": {
+        "id": "GV-03",
+        "gold": "주문",
+        "pred": "미분류",
+        "ok": false
+      }
+    },
+    {
+      "id": "GV-04",
+      "q4": {
+        "id": "GV-04",
+        "gold": "주문",
+        "pred": "주문",
+        "ok": true
+      },
+      "f16": {
+        "id": "GV-04",
+        "gold": "주문",
+        "pred": "미분류",
+        "ok": false
+      }
+    }
+  ],
+  "reconstructed_q4_hybrid": {
+    "no_match_only": {
+      "correct": 47,
+      "total": 48,
+      "calls": 2,
+      "wrong": [
+        {
+          "id": "FD-11",
+          "pred": "옵션변경",
+          "gold": "주문"
+        }
+      ]
+    },
+    "ambiguous_too": {
+      "correct": 43,
+      "total": 48,
+      "calls": 15,
+      "wrong": [
+        {
+          "id": "FD-03",
+          "pred": "주문",
+          "gold": "옵션변경"
+        },
+        {
+          "id": "FD-06",
+          "pred": "주문",
+          "gold": "옵션변경"
+        },
+        {
+          "id": "FD-11",
+          "pred": "옵션변경",
+          "gold": "주문"
+        },
+        {
+          "id": "FD-20",
+          "pred": "정보문의",
+          "gold": "도움요청"
+        },
+        {
+          "id": "GV-16",
+          "pred": "정보문의",
+          "gold": "도움요청"
+        }
+      ]
+    }
+  }
+}

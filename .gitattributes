@@ -1,0 +1,9 @@
+# Preserve the byte representation of archived source documents and evidence.
+research/llm-intent/docs/** -text
+research/llm-intent/data/baseline/** -text
+research/llm-intent/evidence/** -text
+
+# New repository navigation documents use LF.
+README.md text eol=lf
+research/llm-intent/README.md text eol=lf
+research/llm-intent/STATUS.md text eol=lf

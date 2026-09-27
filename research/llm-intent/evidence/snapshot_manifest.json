@@ -1,0 +1,105 @@
+{
+  "snapshot_date": "2026-09-27",
+  "kind": "preserved_design_documents_and_historical_audit_evidence",
+  "new_model_experiments_run": false,
+  "documents": 12,
+  "baseline_gold_rows": 48,
+  "baseline_train_rows": 126,
+  "files": [
+    {
+      "path": "research/llm-intent/docs/KioGuard_48발화_수정검토표_v1.2.md",
+      "bytes": 14744,
+      "sha256": "d8f7e1eb70e57bb75bb3f535615861c22542c2511f7561b7a29f843a8cfb6ab8"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_48발화_재라벨링_승인안_v1.0.md",
+      "bytes": 16180,
+      "sha256": "9ea80f647d1ccb830f801ba5faf7f56ca923072a534a5b62249865d942000cee"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_기존_Colab_실험_검토보고서.md",
+      "bytes": 20683,
+      "sha256": "c15f8da944eb225addc9b84dfee07faddc991cba67fa1708162b447b4da3dec0"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_기존48발화_의도검토_v0.2.md",
+      "bytes": 14935,
+      "sha256": "263c2e04776ead81cccbecbb024790f3f180bb88c7eaa2a09c720dfcfb716ca3"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_미결정사항_및_문맥확인목록_v1.2.md",
+      "bytes": 9518,
+      "sha256": "be3c460d63dbf1848ab638e4583b9ecee5a3bfffe25e85dcc8ef53f8483a561d"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_상세명세서_v0.2.md",
+      "bytes": 54101,
+      "sha256": "2b77a0390c77e1a0333142ce28633b00883ecfedc77f82c57204d61f0b126847"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_의도분류_온디바이스_LLM_설계안_v0.1.md",
+      "bytes": 34945,
+      "sha256": "b1b279d3b2450741d305a13a7679e886ca07884ae9f660eb0bdba08e30be466f"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_의도정의_경계기준_승인안_v1.0.md",
+      "bytes": 24900,
+      "sha256": "90f49fc352a9cd888afb4d4b5f7f4a87b8f6de26691ad84a09d68ac4e486cf83"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_의도정의_경계기준_v1.2.md",
+      "bytes": 23088,
+      "sha256": "a359c763a044887b8d868847202c830be1ee6f93faef738d0ddd9bed4fca0a2f"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_의도체계_재검토_수정권고_v1.1.md",
+      "bytes": 28551,
+      "sha256": "765ed737723f91e0b6cd58ec6c0b11517c49e5ea7098d7ddcec10f04cca32d86"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_작성근거와_결정기준_v0.2.md",
+      "bytes": 15752,
+      "sha256": "9a684ec3a44f4171a82cfcca14ab517625651340b5d19cdd3aa306bc1428e06c"
+    },
+    {
+      "path": "research/llm-intent/docs/KioGuard_LLM선정_PTQ_QAT_실험계획_v1.0.md",
+      "bytes": 24844,
+      "sha256": "00965443780e9f53b56a8ba60f582acaa4590eb16080e629773c9d175224db92"
+    },
+    {
+      "path": "research/llm-intent/data/baseline/gold_audit.csv",
+      "bytes": 2389,
+      "sha256": "fe09872a280ac32eb3e1e50fea34883a69b06c98f22a55ad5da4bffa23fbd2b0"
+    },
+    {
+      "path": "research/llm-intent/data/baseline/train_audit.csv",
+      "bytes": 5096,
+      "sha256": "77022b4e988819dadf5402861cbd84dd2fa128931d9bcc212c9b9502517d737c"
+    },
+    {
+      "path": "research/llm-intent/evidence/audit_counts.json",
+      "bytes": 1069,
+      "sha256": "8b0b7204b3c7964a55257c22eb89bf75b7c5474644f9fb24a35b8c9665827c6f"
+    },
+    {
+      "path": "research/llm-intent/evidence/f16_final.json",
+      "bytes": 3164,
+      "sha256": "3c3e3218233813bc98a63cf3a59821379edaa3403c3bafd0a77f2cb261618f31"
+    },
+    {
+      "path": "research/llm-intent/evidence/intent_v12_verification.json",
+      "bytes": 774,
+      "sha256": "d938b8648a6d5c33b864e39af7de2a4e1cb1fb22edc7deceec56df8768bd5d4d"
+    },
+    {
+      "path": "research/llm-intent/evidence/q4_final.json",
+      "bytes": 3143,
+      "sha256": "b1cc2c586e7f24f441824da5fb147e7f138003386149b929f6fa50a2006d05e2"
+    },
+    {
+      "path": "research/llm-intent/evidence/static_audit_results.json",
+      "bytes": 4612,
+      "sha256": "9c5140ff186ceb7b254bf2384f26224d8e8a966172c54b98b2d42b098ae75478"
+    }
+  ]
+}
