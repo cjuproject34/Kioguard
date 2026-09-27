@@ -1,0 +1,60 @@
+{
+  "schema_version": "3.0-draft",
+  "created_date": "2026-09-28",
+  "status": "DRAFT_REQUIRES_HUMAN_REVIEW",
+  "selection_case_count": 118,
+  "core_case_count": 84,
+  "challenge_case_count": 34,
+  "legacy_regression_case_count": 48,
+  "selection_intent_request_counts": {
+    "BENEFIT_CONTROL": 9,
+    "CANCEL": 10,
+    "COMMIT_REQUEST": 9,
+    "FULFILLMENT": 8,
+    "GUIDE": 8,
+    "HELP": 6,
+    "INFO": 6,
+    "MODIFY": 10,
+    "NAVIGATE": 10,
+    "PAYMENT_METHOD": 10,
+    "RECEIPT": 9,
+    "RESET": 7,
+    "SELECT": 9,
+    "UI_CONTROL": 6
+  },
+  "selection_impact_counts": {
+    "H": 30,
+    "L": 26,
+    "M": 55,
+    "U": 7
+  },
+  "selection_complexity_counts": {
+    "C1": 59,
+    "C2": 41,
+    "C3": 17,
+    "CU": 1
+  },
+  "files": {
+    "selection_dev": {
+      "path": "data/selection_dev_v0.1.jsonl",
+      "sha256": "fc45104a62fb8b6781ad78c8931bed9434cff797f3e39af8fca593bf8d2d5c46"
+    },
+    "selection_challenge": {
+      "path": "data/selection_challenge_v0.1.jsonl",
+      "sha256": "bf5a02d0fe0dd470083ffc4861fce90daf4dedddaee66617a82343bb58e9f4b0"
+    },
+    "legacy48_regression": {
+      "path": "data/legacy48_regression_v1.2.jsonl",
+      "sha256": "7c4f55a446201d3dc0fdf0a65cb0e9d4bd455cd10a6e4e9192735c1decf5b8e0"
+    },
+    "all_review_csv": {
+      "path": "data/evaluation_review_v0.1.csv",
+      "sha256": "7c6e85779b2cbe303e633c8fe031f739f212b2adca10b27f7bda80e961821c3f"
+    }
+  },
+  "limitations": [
+    "selection data is authored development data, not an independent held-out test",
+    "legacy48 contexts are constructed for the new contract and are not recovered historical contexts",
+    "all rows remain DRAFT until human review"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "matrix_version": "1.0-draft",
+  "comparison_precision": "float16",
+  "selection_dataset": ["selection_dev_v0.1", "selection_challenge_v0.1"],
+  "regression_dataset": ["legacy48_regression_v1.2"],
+  "models": [
+    {
+      "key": "qwen35_08b",
+      "model_id": "Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "loader": "multimodal",
+      "tier": "current_candidate",
+      "prior_new_contract_evidence": "5-case smoke only; JSON 5/5, v2.1 contract 0/5, expected 0/5",
+      "decision": "rerun_common_benchmark"
+    },
+    {
+      "key": "qwen35_2b",
+      "model_id": "Qwen/Qwen3.5-2B",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "loader": "multimodal",
+      "tier": "current_candidate",
+      "prior_new_contract_evidence": "5-case smoke only; JSON 5/5, v2.1 contract 0/5, expected 0/5",
+      "decision": "rerun_common_benchmark"
+    },
+    {
+      "key": "gemma4_e2b",
+      "model_id": "google/gemma-4-E2B-it",
+      "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+      "loader": "multimodal",
+      "tier": "current_candidate",
+      "prior_new_contract_evidence": "5-case smoke only; normalized contract 4/5, expected 1/5, one extra CANCEL",
+      "decision": "rerun_common_benchmark"
+    },
+    {
+      "key": "gemma2_2b",
+      "model_id": "google/gemma-2-2b-it",
+      "revision": null,
+      "loader": "causal_lm",
+      "tier": "legacy_baseline",
+      "prior_new_contract_evidence": "none; old 8-label development results are not comparable",
+      "decision": "resolve_revision_then_rerun"
+    },
+    {
+      "key": "qwen2_15b",
+      "model_id": "Qwen/Qwen2-1.5B-Instruct",
+      "revision": null,
+      "loader": "causal_lm",
+      "tier": "legacy_baseline",
+      "prior_new_contract_evidence": "none; old 8-label development result 30/48 under a tuned prompt",
+      "decision": "resolve_revision_then_rerun"
+    },
+    {
+      "key": "phi3_mini",
+      "model_id": "microsoft/Phi-3-mini-4k-instruct",
+      "revision": null,
+      "loader": "causal_lm",
+      "tier": "legacy_baseline",
+      "prior_new_contract_evidence": "none; old 8-label development result 38/48 under its prior runtime",
+      "decision": "resolve_revision_then_rerun"
+    },
+    {
+      "key": "tinyllama_11b",
+      "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "revision": null,
+      "loader": "causal_lm",
+      "tier": "legacy_lower_anchor",
+      "prior_new_contract_evidence": "none; prior Korean 8-label prompt/parser produced 0/48 and does not prove general ability is zero",
+      "decision": "run_gate_subset_before_full"
+    }
+  ]
+}

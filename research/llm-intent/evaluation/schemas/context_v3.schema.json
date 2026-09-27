@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kioguard.local/schemas/context_v3.schema.json",
+  "title": "KioGuard observable context v3 draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "current_stage", "current_screen", "current_order_exists", "payment_completed",
+    "selected_items", "previous_system_question", "available_actions",
+    "observed_ui_elements", "verified_state"
+  ],
+  "properties": {
+    "current_stage": {"type": "string"},
+    "current_screen": {"type": "string"},
+    "current_order_exists": {"type": ["boolean", "null"]},
+    "payment_completed": {"type": ["boolean", "null"]},
+    "selected_items": {"type": "array", "items": {"type": "object"}},
+    "previous_system_question": {"type": ["object", "null"]},
+    "available_actions": {"type": "array", "items": {"type": "string"}},
+    "observed_ui_elements": {"type": "array", "items": {"type": "string"}},
+    "verified_state": {"type": "object"}
+  }
+}

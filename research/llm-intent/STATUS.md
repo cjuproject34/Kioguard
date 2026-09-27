@@ -16,7 +16,7 @@
 |---|---|---|
 | 휴대폰 | Galaxy S24 Ultra, Snapdragon 8 Gen 3, RAM 12GB, Android 16, One UI 8.5, 여유 저장공간 약 170GB | 최종 온디바이스 실행·앱 자원·지연·발열 평가 |
 | 로컬 PC | Radeon RX 580 Series, 전용 GPU 메모리 8GB. 시스템 RAM·CPU 미확인 | VS Code에서 자료·코드·결과 관리, Android 연동 |
-| Colab | 요금제·현재 할당 GPU·VRAM 미확인. 환경 확인 코드 안내 완료, 결과 미수신 | 모델 비교·변환·PTQ의 첫 실행 환경, 자원·호환성 확인 후 QAT |
+| Colab 무료 | Tesla T4 14.56 GiB, 시스템 RAM 12.67 GiB. PyTorch 2.11.0+cu128, torchvision 0.26.0+cu128, torchaudio 2.11.0+cu128, Transformers 5.18.0.dev0 commit `07338b6c74a578868368e6e549dea83414e4b8cb` | FP16 공통 비교·변환·PTQ의 첫 실행 환경, 자원·호환성 확인 후 QAT |
 
 환경 선택 권고는 **Colab 중심 실험 + 로컬 관리 + 휴대폰 실측**입니다. RX 580은 확인한 AMD 공식 ROCm 지원 목록에 포함되어 있지 않아 주력 GPU 학습 환경으로 권하지 않습니다. CPU 기반 PTQ나 Vulkan 추론 가능성과 직접 QAT 지원은 구분합니다. [AMD 공식 호환성 표](https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html), [llama.cpp 빌드 문서](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
 
@@ -29,18 +29,21 @@
 | 완료 | 기존 Colab 코드·저장 결과 검토 및 일부 Rule/Parser 정적 검산 |
 | 완료 | 의도 경계 수정, 기존 48행 검토표, 사용자 지정 5개 표현·7행 반영 |
 | 완료 | 모델 후보·PTQ·QAT 비교 설계와 평가·기록 기준 정리 |
-| 준비됨 | Colab 환경 확인 절차와 코드 안내 |
-| 미실행 | 새 후보 모델 다운로드·추론 및 동일 조건 고정밀 기준 평가 |
+| 완료 | Qwen3.5-0.8B·2B, Gemma 4 E2B FP16 로드와 5건 smoke. 정식 정확도 평가가 아니라 계약·호환성 진단 |
+| 완료 | 새 14개 의도용 166건 평가 초안, 출력 계약 v3, 자동 검증·채점기, 7모델 Colab 노트북 작성 |
+| 미실행 | 166건 사람 검수 및 `APPROVED` 동결 |
+| 미실행 | 7개 모델의 동일 조건 118건 FP16 공통 평가와 후보 선정 |
 | 미실행 | 새 설계의 직접 PTQ, 공개 QAT 모델 평가, 직접 QAT 학습 |
 | 미실행 | Galaxy S24 Ultra의 신규 메모리·지연·발열 벤치마크 |
 
 ## 다음 순서
 
-1. Colab GPU·VRAM·RAM·소프트웨어 버전을 확인합니다.
-2. 평가 입력·출력 계약을 정리하면서 작은 후보로 로딩·변환·추론 경로를 검증합니다.
-3. 고정밀 기준을 만들고 동일 원본에서 Q8_0·Q4_K_M을 각각 생성합니다. Gemma 공식 QAT와 비교할 때는 Q4_0 대조군도 준비합니다.
-4. S24 Ultra의 조기 실행·메모리 확인으로 후보를 좁힙니다.
-5. QAT 학습·배포 규격의 호환성을 검증하고 일반 미세조정 대조군과 직접 QAT를 비교합니다.
-6. 토큰·Router 통합을 최적화하고 최종 단말 평가를 수행합니다.
+1. 평가 166건을 사람 검수하고 수정·제외 사유를 기록합니다.
+2. 7개 모델을 20건 gate로 순차 확인합니다.
+3. 같은 prompt v3·FP16·greedy 조건으로 선별 118건을 실행합니다.
+4. 위험한 추가 행동 gate를 먼저 적용하고 의미 품질·Colab 자원을 비교해 주 후보와 경량 후보를 정합니다.
+5. 주 후보와 Gemma 2 baseline에 기존 48회귀를 실행합니다.
+6. 후보 1~2개의 동일 원본에서 Q8_0·Q4_K_M을 각각 생성합니다. Gemma 공식 QAT와 비교할 때는 Q4_0 대조군도 준비합니다.
+7. S24 Ultra 조기 실행 후 QAT·토큰·Router 통합과 최종 단말 평가를 수행합니다.
 
 최종 모델, 양자화 규격, 정확도 목표, 허용 지연·메모리 예산은 아직 실측으로 확정하지 않았습니다. 공개 QAT 모델 사용과 직접 QAT 수행은 별도 성과로 기록합니다.
