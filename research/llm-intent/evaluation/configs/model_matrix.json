@@ -34,11 +34,11 @@
     {
       "key": "gemma2_2b",
       "model_id": "google/gemma-2-2b-it",
-      "revision": null,
+      "revision": "299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8",
       "loader": "causal_lm",
       "tier": "legacy_baseline",
-      "prior_new_contract_evidence": "none; old 8-label development results are not comparable",
-      "decision": "resolve_revision_then_rerun"
+      "prior_new_contract_evidence": "20-case FP16 v3 gate completed; normalized JSON 20/20, contract valid 0/20 because requests contained an unsupported nested fallback key",
+      "decision": "preserve_as_baseline_and_retest_after_contract_control"
     },
     {
       "key": "qwen2_15b",
