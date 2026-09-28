@@ -1,0 +1,123 @@
+{
+  "status": "CPU_AUDIT_COMPLETE_REQUIRES_HUMAN_REVIEW",
+  "source_cases": 118,
+  "source_files_modified": false,
+  "review_status": {
+    "DRAFT": 118
+  },
+  "impact": {
+    "H": 30,
+    "L": 26,
+    "M": 55,
+    "U": 7
+  },
+  "complexity": {
+    "C1": 59,
+    "C2": 41,
+    "C3": 17,
+    "CU": 1
+  },
+  "impact_by_complexity": {
+    "H/C1": 13,
+    "H/C2": 11,
+    "H/C3": 6,
+    "L/C1": 21,
+    "L/C2": 4,
+    "L/C3": 1,
+    "M/C1": 25,
+    "M/C2": 22,
+    "M/C3": 8,
+    "U/C2": 4,
+    "U/C3": 2,
+    "U/CU": 1
+  },
+  "recommended_route": {
+    "LLM_REQUIRED": 49,
+    "ROUTER_REVIEW": 24,
+    "RULE_CANDIDATE": 45
+  },
+  "auto_flag_counts": {
+    "COMPLEXITY_UNRESOLVED": 1,
+    "CONDITION_PRESENT": 4,
+    "CONSTRUCTED_CONTEXT": 118,
+    "HUMAN_REVIEW_PENDING": 118,
+    "IMPACT_UNRESOLVED": 7,
+    "MULTI_REQUEST": 9,
+    "REQUEST_AND_FALLBACK_REVIEW": 5
+  },
+  "gate_case_ids": [
+    "DEV-SEL-01",
+    "DEV-MOD-01",
+    "DEV-FUL-01",
+    "DEV-PAY-01",
+    "DEV-REC-01",
+    "DEV-BEN-01",
+    "DEV-NAV-01",
+    "DEV-CAN-01",
+    "DEV-GUI-01",
+    "DEV-INF-01",
+    "DEV-UI-01",
+    "DEV-HEL-01",
+    "DEV-COM-01",
+    "DEV-RES-01",
+    "CH-CLR-01",
+    "CH-CLR-02",
+    "CH-NEG-01",
+    "CH-NEG-02",
+    "CH-MUL-01",
+    "CH-CTX-04"
+  ],
+  "duplicate_utterance_groups": [
+    {
+      "utterance": "네",
+      "case_ids": [
+        "DEV-FUL-05",
+        "DEV-PAY-05",
+        "DEV-NAV-06",
+        "CH-CLR-07",
+        "CH-CTX-03",
+        "CH-CTX-04"
+      ],
+      "count": 6
+    },
+    {
+      "utterance": "아니요",
+      "case_ids": [
+        "DEV-REC-06",
+        "CH-CTX-07",
+        "CH-CTX-08"
+      ],
+      "count": 3
+    },
+    {
+      "utterance": "아메리카노 한 잔이요",
+      "case_ids": [
+        "CH-CTX-01",
+        "CH-CTX-02"
+      ],
+      "count": 2
+    },
+    {
+      "utterance": "영수증은 안 받을게요",
+      "case_ids": [
+        "DEV-REC-02",
+        "CH-NEG-03"
+      ],
+      "count": 2
+    },
+    {
+      "utterance": "카드로 결제할게요",
+      "case_ids": [
+        "DEV-PAY-01",
+        "CH-CTX-05",
+        "CH-CTX-06"
+      ],
+      "count": 3
+    }
+  ],
+  "limitations": [
+    "recommended_route is a review proposal, not a trained or measured router decision",
+    "all source cases remain DRAFT",
+    "selection data is authored development data, not an independent held-out test"
+  ]
+}

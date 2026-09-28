@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560">
+<rect width="100%" height="100%" fill="white"/>
+<text x="500.0" y="35" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold">KioGuard routing review proposal (n=118)</text>
+<line x1="90" y1="470.0" x2="960" y2="470.0" stroke="#ddd"/><text x="80" y="475.0" text-anchor="end" font-family="Arial" font-size="13">0</text>
+<line x1="90" y1="403.33333333333337" x2="960" y2="403.33333333333337" stroke="#ddd"/><text x="80" y="408.33333333333337" text-anchor="end" font-family="Arial" font-size="13">10</text>
+<line x1="90" y1="336.6666666666667" x2="960" y2="336.6666666666667" stroke="#ddd"/><text x="80" y="341.6666666666667" text-anchor="end" font-family="Arial" font-size="13">20</text>
+<line x1="90" y1="270.0" x2="960" y2="270.0" stroke="#ddd"/><text x="80" y="275.0" text-anchor="end" font-family="Arial" font-size="13">30</text>
+<line x1="90" y1="203.33333333333334" x2="960" y2="203.33333333333334" stroke="#ddd"/><text x="80" y="208.33333333333334" text-anchor="end" font-family="Arial" font-size="13">40</text>
+<line x1="90" y1="136.66666666666666" x2="960" y2="136.66666666666666" stroke="#ddd"/><text x="80" y="141.66666666666666" text-anchor="end" font-family="Arial" font-size="13">50</text>
+<line x1="90" y1="70.0" x2="960" y2="70.0" stroke="#ddd"/><text x="80" y="75.0" text-anchor="end" font-family="Arial" font-size="13">60</text>
+<text x="235.0" y="515" text-anchor="middle" font-family="Arial" font-size="12">Rule candidate</text>
+<rect x="214.0" y="170.0" width="39" height="300.0" fill="#4C78A8"/><text x="233.5" y="165.0" text-anchor="middle" font-family="Arial" font-size="11">45</text>
+<text x="525.0" y="515" text-anchor="middle" font-family="Arial" font-size="12">LLM required</text>
+<rect x="504.0" y="143.33333333333331" width="39" height="326.6666666666667" fill="#4C78A8"/><text x="523.5" y="138.33333333333331" text-anchor="middle" font-family="Arial" font-size="11">49</text>
+<text x="815.0" y="515" text-anchor="middle" font-family="Arial" font-size="12">Router review</text>
+<rect x="794.0" y="310.0" width="39" height="160.0" fill="#4C78A8"/><text x="813.5" y="305.0" text-anchor="middle" font-family="Arial" font-size="11">24</text>
+<rect x="90" y="540" width="14" height="14" fill="#4C78A8"/><text x="110" y="552" font-family="Arial" font-size="12">cases</text>
+</svg>

@@ -1,0 +1,66 @@
+{
+  "status": "DEVELOPMENT_GATE_ANALYSIS",
+  "source": "/content/drive/MyDrive/KioGuard/experiments/FP16_COMMON_V3",
+  "source_modified": false,
+  "drive_output": "/content/drive/MyDrive/KioGuard/experiments/FP16_COMMON_V3/CPU_ANALYSIS_V1",
+  "cases_per_model": 20,
+  "models": [
+    {
+      "model": "Qwen/Qwen3.5-0.8B",
+      "contract_valid_rate_v1": 0.0,
+      "intent_order_rate": 0.0,
+      "target_exact_rate": 0.0,
+      "slots_exact_rate": 0.0,
+      "fallback_exact_rate": 0.0,
+      "full_exact_rate": 0.0,
+      "dangerous_extra_cases": 0,
+      "must_not_violation_cases": 0,
+      "mean_generation_seconds_colab": 7.8979427796999975,
+      "max_gpu_gib_colab": 1.7190499305725098
+    },
+    {
+      "model": "Qwen/Qwen3.5-2B",
+      "contract_valid_rate_v1": 0.8,
+      "intent_order_rate": 0.45,
+      "target_exact_rate": 0.15,
+      "slots_exact_rate": 0.05,
+      "fallback_exact_rate": 0.75,
+      "full_exact_rate": 0.0,
+      "dangerous_extra_cases": 3,
+      "must_not_violation_cases": 1,
+      "mean_generation_seconds_colab": 6.197680986200015,
+      "max_gpu_gib_colab": 4.25714111328125
+    },
+    {
+      "model": "Qwen/Qwen2-1.5B-Instruct",
+      "contract_valid_rate_v1": 0.95,
+      "intent_order_rate": 0.2,
+      "target_exact_rate": 0.15,
+      "slots_exact_rate": 0.0,
+      "fallback_exact_rate": 0.8,
+      "full_exact_rate": 0.0,
+      "dangerous_extra_cases": 2,
+      "must_not_violation_cases": 2,
+      "mean_generation_seconds_colab": 3.5745824200499783,
+      "max_gpu_gib_colab": 3.029822826385498
+    },
+    {
+      "model": "microsoft/Phi-3-mini-4k-instruct",
+      "contract_valid_rate_v1": 0.65,
+      "intent_order_rate": 0.45,
+      "target_exact_rate": 0.1,
+      "slots_exact_rate": 0.0,
+      "fallback_exact_rate": 0.55,
+      "full_exact_rate": 0.0,
+      "dangerous_extra_cases": 1,
+      "must_not_violation_cases": 2,
+      "mean_generation_seconds_colab": 5.087741773100038,
+      "max_gpu_gib_colab": 7.924434661865234
+    }
+  ],
+  "limitations": [
+    "The 20 cases are an authored development gate, not an independent held-out test.",
+    "Colab GPU time and memory are not Android latency or RAM measurements.",
+    "A zero full-exact rate can combine intent, target, slot, dependency, and fallback errors; decomposed fields must be reviewed together."
+  ]
+}

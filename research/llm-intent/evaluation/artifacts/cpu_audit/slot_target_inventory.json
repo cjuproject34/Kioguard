@@ -1,0 +1,133 @@
+{
+  "target_counts": {
+    "BENEFIT_CONTROL:CURRENT_ORDER": 3,
+    "BENEFIT_CONTROL:coupon-1": 5,
+    "BENEFIT_CONTROL:senior": 1,
+    "CANCEL:CURRENT_ORDER": 4,
+    "CANCEL:CURRENT_TRANSACTION": 1,
+    "CANCEL:app-1": 1,
+    "CANCEL:doc-2": 1,
+    "CANCEL:item-1": 2,
+    "CANCEL:item-2": 1,
+    "COMMIT_REQUEST:CURRENT_ORDER": 3,
+    "COMMIT_REQUEST:CURRENT_TRANSACTION": 2,
+    "COMMIT_REQUEST:app-1": 3,
+    "COMMIT_REQUEST:tx-1": 1,
+    "FULFILLMENT:CURRENT_ORDER": 7,
+    "FULFILLMENT:item-1": 1,
+    "GUIDE:DOCUMENT_ISSUE_PROCESS": 1,
+    "GUIDE:SERVICE_ROUTE": 1,
+    "GUIDE:card_reader": 1,
+    "GUIDE:coupon_scanner": 1,
+    "GUIDE:id_scanner": 1,
+    "GUIDE:number_ticket_machine": 2,
+    "GUIDE:pin_pad": 1,
+    "HELP:CURRENT_TASK": 1,
+    "HELP:KIOSK_SUPPORT": 1,
+    "HELP:KIOSK_UI": 1,
+    "HELP:card_reader": 1,
+    "HELP:continue_button": 1,
+    "HELP:id_camera": 1,
+    "INFO:KIOSK_SERVICE": 1,
+    "INFO:PAYMENT_SUPPORT": 1,
+    "INFO:SENIOR_DISCOUNT": 1,
+    "INFO:STORE_SERVICE": 1,
+    "INFO:app-1": 1,
+    "INFO:아메리카노": 1,
+    "MODIFY:doc-1": 1,
+    "MODIFY:item-1": 8,
+    "MODIFY:item-2": 1,
+    "NAVIGATE:APP_UI": 10,
+    "PAYMENT_METHOD:CURRENT_TRANSACTION": 10,
+    "RECEIPT:CURRENT_TRANSACTION": 8,
+    "RECEIPT:tx-1": 1,
+    "RESET:CURRENT_ORDER": 2,
+    "RESET:CURRENT_TASK": 2,
+    "RESET:DOCUMENT_SELECTION": 1,
+    "RESET:app-1": 2,
+    "SELECT:NEW_APPLICATION": 4,
+    "SELECT:NEW_ORDER": 5,
+    "UI_CONTROL:APP_AUDIO": 3,
+    "UI_CONTROL:APP_UI": 2,
+    "UI_CONTROL:guide-1": 1
+  },
+  "slot_key_counts_by_intent": {
+    "BENEFIT_CONTROL": {
+      "action": 9,
+      "benefit": 3
+    },
+    "CANCEL": {
+      "scope": 10
+    },
+    "COMMIT_REQUEST": {
+      "action": 9,
+      "amount": 2,
+      "confirmation": 2,
+      "document_type": 1
+    },
+    "FULFILLMENT": {
+      "allocations": 1,
+      "confirmation": 1,
+      "exclude": 1,
+      "method": 7,
+      "replace_from": 1
+    },
+    "GUIDE": {
+      "confirmation": 2,
+      "service": 1,
+      "topic": 7,
+      "window": 1
+    },
+    "HELP": {
+      "help_type": 6,
+      "reported_issue": 4
+    },
+    "INFO": {
+      "query": 6
+    },
+    "MODIFY": {
+      "action": 2,
+      "option": 2,
+      "quantity": 2,
+      "replace_from": 1,
+      "replace_to": 2,
+      "size": 1,
+      "temperature": 5
+    },
+    "NAVIGATE": {
+      "confirmation": 1,
+      "destination": 10,
+      "preserve_content": 1
+    },
+    "PAYMENT_METHOD": {
+      "confirmation": 1,
+      "exclude": 2,
+      "method": 10,
+      "replace_from": 1
+    },
+    "RECEIPT": {
+      "action": 9,
+      "confirmation": 2,
+      "format": 1,
+      "quantity": 1
+    },
+    "RESET": {
+      "confirmation": 1,
+      "destination_after_reset": 1,
+      "scope": 7
+    },
+    "SELECT": {
+      "category": 1,
+      "document_type": 3,
+      "item_id": 1,
+      "item_name": 4,
+      "items": 1,
+      "price": 1,
+      "quantity": 6
+    },
+    "UI_CONTROL": {
+      "action": 6,
+      "degree": 2
+    }
+  }
+}

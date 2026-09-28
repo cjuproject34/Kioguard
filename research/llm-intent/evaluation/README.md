@@ -110,6 +110,27 @@ python scripts/score_predictions.py `
 
 채점기는 strict JSON과 code-fence 정규화 JSON을 분리하고, 계약 유효율·전체 의미 일치·의도별 F1·fallback·고영향 사례·위험한 추가 행동을 저장한다.
 
+### GPU 없이 실행하는 감사
+
+원본 데이터와 기존 점수를 변경하지 않고 118건의 라우팅 검토표와 gate 검토표를 만든다.
+
+```powershell
+python scripts/audit_evaluation.py
+python scripts/test_score_predictions_v2.py
+python scripts/measure_prompt_tokens.py prompts/prompt_v3_full.txt prompts/prompt_v3_compact.txt `
+  --out artifacts/cpu_audit/prompt_size_comparison.json
+```
+
+`score_predictions_v2.py`는 기존 채점 결과를 대체하지 않는다. 의도 순서, 요청 수, target, slots, condition, depends_on, fallback을 따로 기록하고 prediction ID 중복을 오류로 보고한다.
+
+CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. Drive의 기존 실험을 읽을 때 결과는 `FP16_COMMON_V3/CPU_ANALYSIS_V1`에 새로 저장한다.
+
+관련 문서:
+
+- `docs/CPU_AUDIT_AND_NEXT_STEPS.md`
+- `docs/PTQ_QAT_EXPERIMENT_PLAN.md`
+- `configs/router_policy_v1.json`
+
 ## 현재 한계
 
 - 166개 모두 아직 `DRAFT`다.
