@@ -1,0 +1,113 @@
+{
+  "status": "DEVELOPMENT_GATE_COMPLETE",
+  "experiment_id": "FP16_COMMON_V3",
+  "cases_per_model": 20,
+  "precision": "float16",
+  "environment_note": "Colab Tesla T4 measurements; not Android latency or RAM measurements",
+  "models": [
+    {
+      "model_key": "qwen35_08b",
+      "model_id": "Qwen/Qwen3.5-0.8B",
+      "contract_valid_rate": 0.0,
+      "macro_intent_f1": 0.0,
+      "fallback_exact_rate": 0.0,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 0,
+      "must_not_violation_cases": 0,
+      "mean_generation_seconds": 7.8979427796999975,
+      "max_gpu_peak_allocated_gib": 1.7190499305725098
+    },
+    {
+      "model_key": "qwen35_2b",
+      "model_id": "Qwen/Qwen3.5-2B",
+      "contract_valid_rate": 0.8,
+      "macro_intent_f1": 0.664286,
+      "fallback_exact_rate": 0.75,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 3,
+      "must_not_violation_cases": 1,
+      "mean_generation_seconds": 6.197680986200015,
+      "max_gpu_peak_allocated_gib": 4.25714111328125
+    },
+    {
+      "model_key": "gemma4_e2b",
+      "model_id": "google/gemma-4-E2B-it",
+      "contract_valid_rate": 0.05,
+      "macro_intent_f1": 0.071429,
+      "fallback_exact_rate": 0.05,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 0,
+      "must_not_violation_cases": 0,
+      "mean_generation_seconds": 7.229,
+      "max_gpu_peak_allocated_gib": 9.642
+    },
+    {
+      "model_key": "gemma2_2b",
+      "model_id": "google/gemma-2-2b-it",
+      "resolved_revision": "299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8",
+      "contract_valid_rate": 0.0,
+      "normalized_json_rate": 1.0,
+      "macro_intent_f1": 0.0,
+      "fallback_exact_rate": 0.0,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 0,
+      "must_not_violation_cases": 0,
+      "load_seconds": 139.833496179,
+      "mean_generation_seconds": 5.454450625549993,
+      "max_gpu_peak_allocated_gib": 5.097578525543213,
+      "parameter_count": 2614341888,
+      "contract_failure_note": "All outputs added an unsupported fallback key inside each request; Markdown code fences were transport-normalized but the schema was not rewritten."
+    },
+    {
+      "model_key": "qwen2_15b",
+      "model_id": "Qwen/Qwen2-1.5B-Instruct",
+      "contract_valid_rate": 0.95,
+      "macro_intent_f1": 0.203641,
+      "fallback_exact_rate": 0.8,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 2,
+      "mean_generation_seconds": 3.5745824200499783,
+      "max_gpu_peak_allocated_gib": 3.029822826385498
+    },
+    {
+      "model_key": "phi3_mini",
+      "model_id": "microsoft/Phi-3-mini-4k-instruct",
+      "contract_valid_rate": 0.65,
+      "macro_intent_f1": 0.511905,
+      "fallback_exact_rate": 0.55,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 1,
+      "must_not_violation_cases": 2,
+      "mean_generation_seconds": 5.087741773100038,
+      "max_gpu_peak_allocated_gib": 7.924434661865234
+    },
+    {
+      "model_key": "tinyllama_11b",
+      "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "contract_valid_rate": 0.0,
+      "macro_intent_f1": 0.0,
+      "fallback_exact_rate": 0.0,
+      "exact_semantic_match_rate": 0.0,
+      "high_impact_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 0,
+      "must_not_violation_cases": 0,
+      "mean_generation_seconds": 7.296,
+      "max_gpu_peak_allocated_gib": 3.038
+    }
+  ],
+  "gate_result": "NO_MODEL_SELECTED",
+  "gate_reason": "No model passed contract, semantic, and safety requirements together. Qwen3.5-2B is the strongest current development candidate by contract validity and macro intent F1, but it produced three dangerous extra-action cases and one must-not violation.",
+  "next_step": "Tighten the output contract or use constrained decoding, rerun the same 20-case gate, then evaluate the surviving one or two candidates on the reviewed 118-case development set before PTQ/QAT.",
+  "limitations": [
+    "The 20 cases are an authored development gate, not an independent held-out accuracy test.",
+    "A contract-invalid output receives zero intent credit in the current scorer, so zero macro F1 does not by itself prove zero semantic understanding.",
+    "Colab generation time and GPU memory do not predict Galaxy S24 Ultra latency, RAM, or heat."
+  ]
+}
