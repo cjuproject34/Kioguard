@@ -125,6 +125,15 @@ python scripts/measure_prompt_tokens.py prompts/prompt_v3_full.txt prompts/promp
 
 CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. Drive의 기존 실험을 읽을 때 결과는 `FP16_COMMON_V3/CPU_ANALYSIS_V1`에 새로 저장한다.
 
+20문장 1차 gate 이후의 오류 진단과 재평가는 다음 파일을 사용한다.
+
+- `artifacts/gate_error_audit/README.md`: 원본 보존 상태와 Gemma 2 사례별 오류 요약
+- `scripts/audit_gate_errors.py`: 계약 무효 출력의 내부 의미·안전 오류를 분리하는 보조 진단기
+- `prompts/prompt_v3_1_full.txt`: context 오인, 위험 행동, request 내부 fallback을 보강한 재평가 prompt
+- `notebooks/KioGuard_FP16_Gate_Rerun_v3_1.ipynb`: 상위 3개 모델의 새 20문장 gate 실행 노트북
+
+진단기의 lenient 지표는 strict baseline을 교체하지 않는다. prompt v3.1은 같은 20문장을 보고 수정했으므로 독립 정확도 결과가 아니라 개발 반복 결과로 기록한다.
+
 관련 문서:
 
 - `docs/CPU_AUDIT_AND_NEXT_STEPS.md`

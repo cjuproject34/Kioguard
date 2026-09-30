@@ -1,0 +1,24 @@
+{
+  "tokenizer": null,
+  "tokenizer_loaded": false,
+  "tokenizer_error": null,
+  "warning": "cpu_proxy_units are not model tokens; use exact_token_count for model-specific conclusions.",
+  "files": [
+    {
+      "path": "research\\llm-intent\\evaluation\\prompts\\prompt_v3_full.txt",
+      "characters": 1873,
+      "utf8_bytes": 2972,
+      "cpu_proxy_units": 791,
+      "exact_token_count": null
+    },
+    {
+      "path": "research\\llm-intent\\evaluation\\prompts\\prompt_v3_1_full.txt",
+      "characters": 2813,
+      "utf8_bytes": 4615,
+      "cpu_proxy_units": 1296,
+      "exact_token_count": null,
+      "character_reduction_vs_first": -0.5018686599038975,
+      "proxy_reduction_vs_first": -0.638432364096081
+    }
+  ]
+}
