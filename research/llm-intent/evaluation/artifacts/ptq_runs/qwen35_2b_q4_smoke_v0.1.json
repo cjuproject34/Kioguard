@@ -1,0 +1,11 @@
+{
+  "experiment_id": "PTQ-QWEN35-2B-SMOKE-01",
+  "status": "SUCCESS",
+  "model": "qwen35-2b-q4_k_m.gguf",
+  "backend": "llama.cpp llama-cli CPU build, -ngl 0",
+  "generation_seconds": 59.6632,
+  "returncode": 0,
+  "input": {"context": "상품 한 개가 선택되어 있고 옵션을 묻는 단계", "utterance": "따뜻한 걸로 두 잔이요"},
+  "raw_output_excerpt": "{\"requests\":[{\"request_id\":\"r1\",\"intent\":\"SELECT\",\"target\":\"APP_UI\",\"slots\":{\"temperature\":\"WARM\",\"quantity\":2,\"meal_type\":\"DINE_IN\"},\"condition\":null,\"depends_on\":null}],\"fallback\":null}",
+  "note": "GGUF 로드·생성 확인용 단일 smoke이며 PTQ 정확도나 gate 통과를 의미하지 않음"
+}

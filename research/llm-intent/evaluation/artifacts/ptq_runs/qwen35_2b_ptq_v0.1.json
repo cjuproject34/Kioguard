@@ -1,0 +1,17 @@
+{
+  "experiment_id": "PTQ-QWEN35-2B-01",
+  "status": "SUCCESS",
+  "environment": "Google Colab Tesla T4, Python 3",
+  "model_id": "Qwen/Qwen3.5-2B",
+  "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "llama_commit": "b04642061d183dff8504127dfbee1c1a8352682c",
+  "download_seconds": 128.6413,
+  "hf_model_bytes": 4571277391,
+  "conversion": {"returncode": 0, "f16_bytes": 3897387936, "seconds_included_in_total": true},
+  "quantization": {
+    "Q8_0": {"returncode": 0, "bytes": 2076674976, "ok": true},
+    "Q4_K_M": {"returncode": 0, "bytes": 1312164768, "ok": true}
+  },
+  "elapsed_seconds": 532.5390,
+  "note": "변환·양자화 성공 기록이며, 아직 GGUF 추론 정확도나 Android 성능을 의미하지 않음"
+}

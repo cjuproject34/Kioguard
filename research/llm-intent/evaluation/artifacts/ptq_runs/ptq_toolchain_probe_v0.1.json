@@ -1,0 +1,9 @@
+{
+  "experiment_id": "PTQ-TOOLCHAIN-01",
+  "status": "SUCCESS",
+  "environment": "Google Colab Tesla T4, Python 3",
+  "llama_commit": "b04642061d183dff8504127dfbee1c1a8352682c",
+  "converter": {"path": "convert_hf_to_gguf.py", "help_ok": true},
+  "quantizer": {"target": "llama-quantize", "backend": "CPU", "build_ok": true},
+  "note": "도구 가용성 확인이며 모델 변환·정확도·단말 성능 결과가 아님"
+}

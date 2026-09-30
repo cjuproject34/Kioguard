@@ -1,0 +1,14 @@
+{
+  "experiment_id": "PTQ-GEMMA4-E2B-01/02",
+  "status": "CONVERT_FAILED_MEMORY_LIMIT",
+  "environment": "Google Colab Tesla T4, Python 3, RAM 12.67 GiB",
+  "model_id": "google/gemma-4-E2B-it",
+  "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+  "llama_commit": "b04642061d183dff8504127dfbee1c1a8352682c",
+  "hf_model_bytes": 10278852089,
+  "download_seconds": 107.4367,
+  "first_attempt": {"returncode": -9, "outcome": "process killed while writing GGUF"},
+  "low_memory_retry": {"option": "--use-temp-file", "returncode": -9, "outcome": "process killed before output file completed"},
+  "quantization": "not_run",
+  "note": "llama.cpp 지원 불가로 단정하지 않음. 현재 Colab RAM에서 Gemma4 변환이 완료되지 않았다는 결과임"
+}
