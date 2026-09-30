@@ -1,0 +1,21 @@
+﻿case_id,dataset,impact,complexity,prediction_status,strict_json,normalized_json,wrapper,contract_valid,request_count_exact,intent_multiset_exact,intent_order_exact,target_exact,slots_exact,condition_exact,depends_on_exact,fallback_exact,full_exact,gold_intents,pred_intents,dangerous_extra_intents,must_not_hits,mismatch_categories,contract_errors
+DEV-SEL-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,False,False,True,True,True,False,SELECT,SELECT,,,"target,slots,full",
+DEV-MOD-01,selection_dev_v0.1,M,C2,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,False,False,True,False,True,True,True,False,MODIFY,SELECT,,,"intent_multiset,intent_order,slots,full",
+DEV-FUL-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,False,False,False,False,True,True,True,False,FULFILLMENT,NAVIGATE,,,"intent_multiset,intent_order,target,slots,full",
+DEV-PAY-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,False,False,True,True,True,False,PAYMENT_METHOD,PAYMENT_METHOD,,,"target,slots,full",
+DEV-REC-01,selection_dev_v0.1,L,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,False,False,True,True,True,False,RECEIPT,RECEIPT,,,"target,slots,full",
+DEV-BEN-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,False,True,True,True,True,False,BENEFIT_CONTROL,BENEFIT_CONTROL,,,"target,full",
+DEV-NAV-01,selection_dev_v0.1,L,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,True,True,True,True,True,NAVIGATE,NAVIGATE,,,,
+DEV-CAN-01,selection_dev_v0.1,M,C2,SUCCESS,False,True,MARKDOWN_CODE_FENCE,False,False,False,False,False,False,False,False,False,False,CANCEL,,,,"request_count,intent_multiset,intent_order,target,slots,condition,depends_on,fallback,full",requests[0] keys differ | requests[1] keys differ | requests[2] keys differ | requests[2] invalid intent
+DEV-GUI-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,False,False,False,False,False,False,False,False,False,False,GUIDE,,,,"request_count,intent_multiset,intent_order,target,slots,condition,depends_on,fallback,full",requests[0] invalid intent
+DEV-INF-01,selection_dev_v0.1,L,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,False,False,False,False,True,True,True,False,INFO,NAVIGATE,,,"intent_multiset,intent_order,target,slots,full",
+DEV-UI-01,selection_dev_v0.1,L,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,False,True,True,True,False,UI_CONTROL,UI_CONTROL,,,"slots,full",
+DEV-HEL-01,selection_dev_v0.1,M,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,False,False,False,False,False,False,False,True,False,HELP,,,,"request_count,intent_multiset,intent_order,target,slots,condition,depends_on,full",
+DEV-COM-01,selection_dev_v0.1,H,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,False,True,True,True,False,COMMIT_REQUEST,COMMIT_REQUEST,,,"slots,full",
+DEV-RES-01,selection_dev_v0.1,H,C2,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,False,False,True,False,True,True,True,False,RESET,CANCEL,CANCEL,,"intent_multiset,intent_order,slots,full",
+CH-CLR-01,selection_challenge_v0.1,U,C2,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,True,True,True,True,True,,,,,,
+CH-CLR-02,selection_challenge_v0.1,U,C3,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,True,True,True,False,False,,,,,"fallback,full",
+CH-NEG-01,selection_challenge_v0.1,H,C2,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,False,False,False,False,False,False,False,False,False,,CANCEL,CANCEL,CANCEL,"request_count,intent_multiset,intent_order,target,slots,condition,depends_on,fallback,full",
+CH-NEG-02,selection_challenge_v0.1,M,C3,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,True,True,True,True,True,NAVIGATE,NAVIGATE,,,,
+CH-MUL-01,selection_challenge_v0.1,H,C3,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,False,False,False,False,False,False,False,True,False,"CANCEL,NAVIGATE",CANCEL,,,"request_count,intent_multiset,intent_order,target,slots,condition,depends_on,full",
+CH-CTX-04,selection_challenge_v0.1,H,C1,SUCCESS,False,True,MARKDOWN_CODE_FENCE,True,True,True,True,True,False,True,True,True,False,COMMIT_REQUEST,COMMIT_REQUEST,,,"slots,full",

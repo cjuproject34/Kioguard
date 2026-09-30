@@ -1,17 +1,17 @@
 # 20문장 1차 gate 오류 분석
 
 기준일: 2026-09-30  
-상태: **Gemma 2 원본 분석 완료 / Qwen3.5 2B·Qwen2 1.5B 원본 재실행 필요**
+상태: **Gemma 2 원본 분석 및 Qwen3.5 2B v3.1 재평가 완료 / Qwen2 1.5B·Gemma 2 v3.1 재실행 필요**
 
 ## 원본 보존 상태
 
 | 모델 | 20건 원본 예측 | 가능한 분석 |
 |---|---|---|
 | `google/gemma-2-2b-it` | 로컬 보존 | 사례별 계약·의도·target·slot·fallback·안전 오류 분석 완료 |
-| `Qwen/Qwen3.5-2B` | 집계 요약만 보존 | 기존 집계 결과만 인용. prompt v3.1로 재실행 후 사례 분석 |
+| `Qwen/Qwen3.5-2B` | prompt v3.1 원본 20건 보존 | strict·분해 채점 및 사례별 오류 분석 완료 |
 | `Qwen/Qwen2-1.5B-Instruct` | 집계 요약만 보존 | 기존 집계 결과만 인용. prompt v3.1로 재실행 후 사례 분석 |
 
-원본이 없는 두 모델의 사례별 오류는 집계값에서 추정하거나 복원하지 않는다.
+원본이 없는 Qwen2 1.5B의 사례별 오류는 집계값에서 추정하거나 복원하지 않는다.
 
 ## Gemma 2 실제 원본 진단
 
@@ -39,6 +39,31 @@
 - `gemma2_2b_v3/error_report.md`
 - `gemma2_2b_v3/error_summary.json`
 - `gemma2_2b_v3/case_error_audit.csv`
+
+## Qwen3.5 2B prompt v3.1 재평가
+
+동일한 개발용 20문장 gate를 prompt v3.1로 다시 실행했다. 이 결과는 prompt를 해당 20문장 오류에 맞춰 수정한 뒤 얻은 개발 반복 결과이므로 독립 정확도가 아니다.
+
+| 항목 | prompt v3 | prompt v3.1 |
+|---|---:|---:|
+| 계약 유효율 | 80% | 90% |
+| 의도 Macro F1 | 0.664286 | 0.474150 |
+| fallback exact | 75% | 80% |
+| 위험한 추가 행동 | 3건 | 2건 |
+| `must_not` 위반 | 1건 | 1건 |
+| 고영향 exact | 0% | 0% |
+
+계약과 fallback 일부는 개선됐지만 의도 Macro F1은 낮아졌고 안전 gate도 통과하지 못했다. 따라서 v3.1을 최종 prompt로 확정하거나 Qwen3.5 2B를 PTQ/QAT 대상으로 선정하지 않는다.
+
+사례별 진단에서는 20건 모두 Markdown code fence 정규화가 필요했고, 계약을 무시한 의도 순서 일치는 11/20이었다. 주요 오류는 `MODIFY→SELECT`, `FULFILLMENT→NAVIGATE`, `RESET→CANCEL`, 부정 발화에서의 `CANCEL` 추가, 복합 `CANCEL+NAVIGATE` 중 `NAVIGATE` 누락이다.
+
+상세 결과:
+
+- `qwen35_2b_v3_1/run_manifest.json`
+- `qwen35_2b_v3_1/predictions.jsonl`
+- `qwen35_2b_v3_1/scores/summary_v2.json`
+- `qwen35_2b_v3_1/diagnostics/error_report.md`
+- `qwen35_2b_v3_1/diagnostics/case_error_audit.csv`
 
 ## prompt v3.1에서 바꾼 점
 

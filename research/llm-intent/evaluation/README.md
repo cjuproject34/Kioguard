@@ -131,6 +131,7 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 - `scripts/audit_gate_errors.py`: 계약 무효 출력의 내부 의미·안전 오류를 분리하는 보조 진단기
 - `prompts/prompt_v3_1_full.txt`: context 오인, 위험 행동, request 내부 fallback을 보강한 재평가 prompt
 - `notebooks/KioGuard_FP16_Gate_Rerun_v3_1.ipynb`: 상위 3개 모델의 새 20문장 gate 실행 노트북
+- `artifacts/gate_error_audit/qwen35_2b_v3_1/`: Qwen3.5 2B prompt v3.1 원출력, 채점, 사례별 진단
 
 진단기의 lenient 지표는 strict baseline을 교체하지 않는다. prompt v3.1은 같은 20문장을 보고 수정했으므로 독립 정확도 결과가 아니라 개발 반복 결과로 기록한다.
 
@@ -148,4 +149,5 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 - 앱에서 실제로 지원할 동작과 슬롯 이름이 확정되면 일부 정답을 수정해야 한다.
 - 7개 모델의 20문장 FP16 개발 gate는 완료했지만 모든 gate를 함께 통과한 모델은 없다. 공통 요약은 `artifacts/fp16_gate_summary_v3.json`에 보존했다.
 - 현재 개발 후보 중 Qwen3.5-2B가 계약 유효율과 macro intent F1이 가장 높았지만 위험한 추가 행동 3건과 must-not 위반 1건이 있어 아직 PTQ/QAT 대상으로 확정하지 않는다.
+- Qwen3.5-2B의 prompt v3.1 재평가는 계약 유효율 90%, macro intent F1 0.474150, 위험 행동 2건, must-not 위반 1건이었다. 일부 형식·안전 지표는 개선됐지만 의미 품질이 낮아졌고 안전 gate도 실패했으므로 모델·prompt를 아직 확정하지 않는다.
 - Gemma 2 2B는 정규화 가능한 JSON을 20/20 생성했으나 각 request 안에 계약에 없는 `fallback` 키를 추가해 계약 유효율이 0%였다. 현재 채점기는 계약 무효 출력을 의도 점수에 포함하지 않으므로 macro F1 0을 의미 이해 능력 0으로 단정하지 않는다.
