@@ -1,0 +1,21 @@
+﻿case_id,dataset,impact,complexity,strict_json,normalized_json,wrapper,contract_valid,exact_semantic_match,fallback_exact,gold_intents,pred_intents,dangerous_extra_intents,must_not_hits,contract_errors
+DEV-SEL-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,False,False,False,SELECT,,,,requests[0] invalid intent
+DEV-MOD-01,selection_dev_v0.1,M,C2,False,True,MARKDOWN_CODE_FENCE,True,False,True,MODIFY,MODIFY,,,
+DEV-FUL-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,FULFILLMENT,NAVIGATE,,,
+DEV-PAY-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,PAYMENT_METHOD,PAYMENT_METHOD,,,
+DEV-REC-01,selection_dev_v0.1,L,C1,False,True,MARKDOWN_CODE_FENCE,False,False,False,RECEIPT,,,,requests[0] invalid intent
+DEV-BEN-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,BENEFIT_CONTROL,BENEFIT_CONTROL,,,
+DEV-NAV-01,selection_dev_v0.1,L,C1,False,True,MARKDOWN_CODE_FENCE,True,True,True,NAVIGATE,NAVIGATE,,,
+DEV-CAN-01,selection_dev_v0.1,M,C2,False,True,MARKDOWN_CODE_FENCE,True,False,True,CANCEL,MODIFY,,,
+DEV-GUI-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,False,False,False,GUIDE,,,,requests[0] invalid intent
+DEV-INF-01,selection_dev_v0.1,L,C1,False,True,MARKDOWN_CODE_FENCE,False,False,False,INFO,,,,requests[0] invalid intent
+DEV-UI-01,selection_dev_v0.1,L,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,UI_CONTROL,UI_CONTROL,,,
+DEV-HEL-01,selection_dev_v0.1,M,C1,False,True,MARKDOWN_CODE_FENCE,False,False,False,HELP,,,,requests[0] invalid intent
+DEV-COM-01,selection_dev_v0.1,H,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,COMMIT_REQUEST,COMMIT_REQUEST,,,
+DEV-RES-01,selection_dev_v0.1,H,C2,False,True,MARKDOWN_CODE_FENCE,True,False,True,RESET,RESET,,,
+CH-CLR-01,selection_challenge_v0.1,U,C2,False,True,MARKDOWN_CODE_FENCE,False,False,False,,,,,requests[0] invalid intent
+CH-CLR-02,selection_challenge_v0.1,U,C3,False,True,MARKDOWN_CODE_FENCE,False,False,False,,,,,requests[0] invalid intent
+CH-NEG-01,selection_challenge_v0.1,H,C2,False,True,MARKDOWN_CODE_FENCE,True,False,False,,CANCEL,CANCEL,CANCEL,
+CH-NEG-02,selection_challenge_v0.1,M,C3,False,True,MARKDOWN_CODE_FENCE,True,False,True,NAVIGATE,NAVIGATE,,,
+CH-MUL-01,selection_challenge_v0.1,H,C3,False,True,MARKDOWN_CODE_FENCE,True,False,True,"CANCEL,NAVIGATE",CANCEL,,,
+CH-CTX-04,selection_challenge_v0.1,H,C1,False,True,MARKDOWN_CODE_FENCE,True,False,True,COMMIT_REQUEST,COMMIT_REQUEST,,,

@@ -1,0 +1,42 @@
+{
+  "experiment_id": "FP16_GATE_V3_1",
+  "prompt_version": "v3_1",
+  "run_name": "qwen2_15b_gate_fp16_v3_1",
+  "created_at": "2026-09-30T13:30:56.848015+00:00",
+  "model_key": "qwen2_15b",
+  "model_id": "Qwen/Qwen2-1.5B-Instruct",
+  "requested_revision": null,
+  "resolved_revision": "ba1cf1846d7df0a0591d6c00649f57e798519da8",
+  "precision": "float16",
+  "run_scope": "gate",
+  "case_count": 20,
+  "prompt_sha256": "69558054aae82c3bd2ad7b613c921ace67697e5898009b8c61292d065b245254",
+  "max_new_tokens": 220,
+  "decoding": "greedy",
+  "environment": {
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "torchvision": "0.26.0+cu128",
+    "torchaudio": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "transformers_commit": null,
+    "cuda_available": true,
+    "gpu": "Tesla T4"
+  },
+  "load_metrics": {
+    "model_class": "Qwen2ForCausalLM",
+    "resolved_revision": "ba1cf1846d7df0a0591d6c00649f57e798519da8",
+    "load_seconds": 36.039403643000014,
+    "process_rss_before_gib": 0.8961639404296875,
+    "process_rss_after_gib": 1.1765785217285156,
+    "gpu_allocated_gib": 2.8753929138183594,
+    "gpu_reserved_gib": 2.9296875,
+    "gpu_peak_allocated_gib": 2.8753929138183594,
+    "parameter_count": 1543714304
+  },
+  "successful_cases": 20,
+  "error_cases": 0,
+  "mean_generation_seconds": 3.1527764157000036,
+  "max_gpu_peak_allocated_gib": 3.1520962715148926,
+  "note": "Colab FP16 development measurement; not Android latency and not independent test accuracy"
+}
