@@ -1,0 +1,44 @@
+{
+  "experiment_id": "PTQ-QWEN35-2B-GATE-01",
+  "status": "SUCCESS",
+  "environment": "Google Colab Tesla T4, CPU llama.cpp build, -ngl 0",
+  "model_id": "Qwen/Qwen3.5-2B",
+  "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "prompt_version": "v3.1",
+  "cases": 20,
+  "transport_normalization": "llama-cli banner/prompt/code-fence wrapper stripped before scoring; raw output preserved separately in Colab runtime",
+  "baseline_reference": {
+    "precision": "float16",
+    "macro_intent_f1": 0.4741496598639456,
+    "contract_valid_rate": 0.9,
+    "exact_semantic_match_rate": 0.15,
+    "fallback_exact_rate": 0.8,
+    "high_impact_exact_rate": 0.0,
+    "dangerous_extra_action_cases": 2,
+    "must_not_violation_cases": 1,
+    "mean_generation_seconds": 3.1
+  },
+  "Q4_K_M": {
+    "bytes": 1312164768,
+    "macro_intent_f1": 0.4693877551020408,
+    "contract_valid_rate": 0.9,
+    "exact_semantic_match_rate": 0.15,
+    "fallback_exact_rate": 0.85,
+    "high_impact_exact_rate": 0.0,
+    "dangerous_extra_action_cases": 1,
+    "must_not_violation_cases": 0,
+    "mean_generation_seconds": 71.8450256145
+  },
+  "Q8_0": {
+    "bytes": 2076674976,
+    "macro_intent_f1": 0.46224489795918366,
+    "contract_valid_rate": 0.9,
+    "exact_semantic_match_rate": 0.15,
+    "fallback_exact_rate": 0.85,
+    "high_impact_exact_rate": 0.0,
+    "dangerous_extra_action_cases": 2,
+    "must_not_violation_cases": 1,
+    "mean_generation_seconds": 105.1731427451
+  },
+  "interpretation": "Development gate only; not an Android latency or independent test result. Both PTQ variants retained contract rate and exact semantic rate versus FP16, while Macro F1 was slightly lower. CPU llama-cli timing is not a phone measurement."
+}
