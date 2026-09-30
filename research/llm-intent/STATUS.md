@@ -66,7 +66,8 @@ Gemma4 E2B는 HF 원본 10.28GB 다운로드에는 성공했으나 일반 변환
 | 완료 | prompt v3.1과 상위 3개 모델 gate 재실행 노트북 작성 |
 | 완료 | Qwen3.5 2B prompt v3.1 20문장 재평가. 계약 90%, Macro F1 0.474150, 위험 행동 2건, must-not 위반 1건으로 gate 미통과 |
 | 미실행 | 166건 사람 검수 및 `APPROVED` 동결 |
-| 완료 | Qwen2 1.5B·Gemma 2 2B의 prompt v3.1 20문장 재평가 |`n| 완료 | Gemma 3 1B의 prompt v3.1 20문장 FP16 gate 추가 평가. Macro F1 0.2143으로 PTQ 보류 |
+| 완료 | Qwen2 1.5B·Gemma 2 2B의 prompt v3.1 20문장 재평가 |
+| 완료 | Gemma 3 1B의 prompt v3.1 20문장 FP16 gate 추가 평가. Macro F1 0.2143으로 PTQ 보류 |
 | 미실행 | 안전 gate 통과 모델의 동일 조건 118건 FP16 공통 평가와 최종 후보 선정 |
 | 부분 완료 | Qwen3.5 2B 직접 PTQ 파일 생성·단일 GGUF smoke. gate 채점과 QAT는 미실행 |
 | 미실행 | Galaxy S24 Ultra의 신규 메모리·지연·발열 벤치마크 |
@@ -83,5 +84,6 @@ Gemma4 E2B는 HF 원본 10.28GB 다운로드에는 성공했으나 일반 변환
 8. 최종 후보가 좁혀진 뒤 S24 Ultra에서 로딩·반복 추론·메모리·지연·발열을 측정합니다.
 
 최종 모델, 양자화 규격, 정확도 목표, 허용 지연·메모리 예산은 아직 실측으로 확정하지 않았습니다. 공개 QAT 모델 사용과 직접 QAT 수행은 별도 성과로 기록합니다.
+
 
 
