@@ -1,0 +1,25 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "model_id": "Qwen/Qwen3.5-0.8B",
+  "cases": 20,
+  "prediction_rows": 20,
+  "strict_json_rate": 0.9,
+  "normalized_json_rate": 0.9,
+  "lenient_intent_order_exact_rate": 0.15,
+  "lenient_full_exact_rate": 0.05,
+  "dangerous_extra_action_cases_lenient": 0,
+  "must_not_violation_cases_lenient": 1,
+  "error_category_counts": {
+    "CONDITION": 13,
+    "DEPENDENCY": 13,
+    "FALLBACK": 5,
+    "INTENT": 17,
+    "JSON_PARSE": 2,
+    "MUST_NOT": 1,
+    "REQUEST_COUNT": 13,
+    "SLOTS": 18,
+    "TARGET": 18
+  },
+  "extra_request_key_counts": {},
+  "note": "Lenient fields expose errors hidden by an invalid contract. They are diagnostic only and do not replace the strict baseline scorer."
+}

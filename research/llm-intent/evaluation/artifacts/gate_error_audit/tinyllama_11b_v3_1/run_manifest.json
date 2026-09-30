@@ -1,0 +1,42 @@
+{
+  "experiment_id": "FP16_GATE_V3_1",
+  "prompt_version": "v3_1",
+  "run_name": "tinyllama_11b_gate_fp16_v3_1",
+  "created_at": "2026-09-30T14:16:07.639330+00:00",
+  "model_key": "tinyllama_11b",
+  "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "requested_revision": null,
+  "resolved_revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+  "precision": "float16",
+  "run_scope": "gate",
+  "case_count": 20,
+  "prompt_sha256": "69558054aae82c3bd2ad7b613c921ace67697e5898009b8c61292d065b245254",
+  "max_new_tokens": 220,
+  "decoding": "greedy",
+  "environment": {
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "torchvision": "0.26.0+cu128",
+    "torchaudio": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "transformers_commit": null,
+    "cuda_available": true,
+    "gpu": "Tesla T4"
+  },
+  "load_metrics": {
+    "model_class": "LlamaForCausalLM",
+    "resolved_revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+    "load_seconds": 81.04524002800008,
+    "process_rss_before_gib": 2.3854103088378906,
+    "process_rss_after_gib": 2.778076171875,
+    "gpu_allocated_gib": 2.0579118728637695,
+    "gpu_reserved_gib": 2.919921875,
+    "gpu_peak_allocated_gib": 2.0579118728637695,
+    "parameter_count": 1100048384
+  },
+  "successful_cases": 20,
+  "error_cases": 0,
+  "mean_generation_seconds": 8.559973668249928,
+  "max_gpu_peak_allocated_gib": 4.221983432769775,
+  "note": "Colab FP16 development measurement; not Android latency and not independent test accuracy"
+}

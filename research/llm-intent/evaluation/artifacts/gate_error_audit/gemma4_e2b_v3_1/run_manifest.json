@@ -1,0 +1,42 @@
+{
+  "experiment_id": "FP16_GATE_V3_1",
+  "prompt_version": "v3_1",
+  "run_name": "gemma4_e2b_gate_fp16_v3_1",
+  "created_at": "2026-09-30T13:56:26.959990+00:00",
+  "model_key": "gemma4_e2b",
+  "model_id": "google/gemma-4-E2B-it",
+  "requested_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+  "resolved_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+  "precision": "float16",
+  "run_scope": "gate",
+  "case_count": 20,
+  "prompt_sha256": "69558054aae82c3bd2ad7b613c921ace67697e5898009b8c61292d065b245254",
+  "max_new_tokens": 220,
+  "decoding": "greedy",
+  "environment": {
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "torchvision": "0.26.0+cu128",
+    "torchaudio": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "transformers_commit": null,
+    "cuda_available": true,
+    "gpu": "Tesla T4"
+  },
+  "load_metrics": {
+    "model_class": "Gemma4ForConditionalGeneration",
+    "resolved_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+    "load_seconds": 322.4333012079999,
+    "process_rss_before_gib": 1.8252296447753906,
+    "process_rss_after_gib": 2.7525863647460938,
+    "gpu_allocated_gib": 9.517502307891846,
+    "gpu_reserved_gib": 9.609375,
+    "gpu_peak_allocated_gib": 9.517502307891846,
+    "parameter_count": 5104297504
+  },
+  "successful_cases": 20,
+  "error_cases": 0,
+  "mean_generation_seconds": 6.592624965749996,
+  "max_gpu_peak_allocated_gib": 9.697214126586914,
+  "note": "Colab FP16 development measurement; not Android latency and not independent test accuracy"
+}

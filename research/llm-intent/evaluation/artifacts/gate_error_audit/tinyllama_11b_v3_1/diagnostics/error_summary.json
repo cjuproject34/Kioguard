@@ -1,0 +1,24 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "cases": 20,
+  "prediction_rows": 20,
+  "strict_json_rate": 0.0,
+  "normalized_json_rate": 0.0,
+  "lenient_intent_order_exact_rate": 0.15,
+  "lenient_full_exact_rate": 0.0,
+  "dangerous_extra_action_cases_lenient": 0,
+  "must_not_violation_cases_lenient": 0,
+  "error_category_counts": {
+    "CONDITION": 17,
+    "DEPENDENCY": 17,
+    "FALLBACK": 20,
+    "INTENT": 17,
+    "JSON_PARSE": 20,
+    "REQUEST_COUNT": 17,
+    "SLOTS": 17,
+    "TARGET": 17
+  },
+  "extra_request_key_counts": {},
+  "note": "Lenient fields expose errors hidden by an invalid contract. They are diagnostic only and do not replace the strict baseline scorer."
+}
