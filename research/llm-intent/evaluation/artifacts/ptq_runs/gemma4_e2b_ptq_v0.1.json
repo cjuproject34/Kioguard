@@ -1,5 +1,5 @@
 {
-  "experiment_id": "PTQ-GEMMA4-E2B-01/02",
+  "experiment_id": "PTQ-GEMMA4-E2B-01/02/03",
   "status": "CONVERT_FAILED_MEMORY_LIMIT",
   "environment": "Google Colab Tesla T4, Python 3, RAM 12.67 GiB",
   "model_id": "google/gemma-4-E2B-it",
@@ -9,6 +9,18 @@
   "download_seconds": 107.4367,
   "first_attempt": {"returncode": -9, "outcome": "process killed while writing GGUF"},
   "low_memory_retry": {"option": "--use-temp-file", "returncode": -9, "outcome": "process killed before output file completed"},
+  "latest_retry": {
+    "date": "2026-10-01",
+    "option": "--use-temp-file",
+    "download_seconds": 101.34,
+    "hf_snapshot_bytes": 10278852089,
+    "converter_seconds": 58.51,
+    "returncode": -9,
+    "peak_observed_ram_gib": 11.50,
+    "ram_capacity_gib": 12.67,
+    "outfile_created": false,
+    "log_stage": "Model architecture indexed and tensor export started; process killed during export"
+  },
   "quantization": "not_run",
-  "note": "llama.cpp 지원 불가로 단정하지 않음. 현재 Colab RAM에서 Gemma4 변환이 완료되지 않았다는 결과임"
+  "note": "llama.cpp 지원 불가나 모델 품질 실패로 단정하지 않음. 동일한 Colab RAM 한계에서 재시도도 -9로 종료되어, Gemma4 PTQ는 더 큰 host RAM 환경으로 보류함"
 }
