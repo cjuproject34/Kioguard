@@ -87,6 +87,7 @@ Q4_K_M과 Q8_0을 동일한 prompt v3.1·20건 gate로 CPU `llama-cli`에서 실
 | 미실행 | Galaxy S24 Ultra의 신규 메모리·지연·발열 벤치마크 |
 | 보류 | Gemma4 E2B PTQ 재시도. 10.28GB 다운로드는 성공했으나 `--use-temp-file` 변환도 58.51초 후 `-9`, 관측 RAM 11.50/12.67GiB로 종료 |
 | 준비 | QAT 파일럿 시작 조건·중단 조건·이틀 범위 기록. QAT 학습과 정확도 결과는 아직 없음 |
+| 완료(집계) | Qwen3.5 2B FP16·Q4_K_M·Q8_0 동일 gate의 Macro F1·계약·안전 지표 변화 검토. 사례별 PTQ 출력 보존이 없어 회귀 귀속은 보류 |
 
 ## 다음 순서
 
@@ -95,7 +96,7 @@ Q4_K_M과 Q8_0을 동일한 prompt v3.1·20건 gate로 CPU `llama-cli`에서 실
 3. 현재 gate 결과에는 통과 모델이 없으므로 118건 확장 전에 오류 원인을 검토하고, 구조화 출력 제약 또는 prompt 수정 여부를 결정합니다.
 4. PTQ 도구체인 확인은 완료했습니다. Qwen3.5 2B는 변환·양자화·GGUF 단일 생성까지 완료했고, Gemma4는 10.28GB 다운로드 후 `--use-temp-file` 재시도도 Colab RAM 12.67GiB에서 `-9`로 중단됐습니다. 상세는 `evaluation/artifacts/ptq_runs/gemma4_e2b_ptq_v0.1.json`에 기록했습니다.
 5. 호환성이 확인된 후보에서 FP16 기준 → Q8_0 → Q4_K_M을 비교하고, Gemma 4는 Q4_0 공개 QAT 산출물 비교를 별도 실험으로 둡니다.
-6. PTQ 전후 동일 gate 채점은 완료했습니다. 다음으로 사례별 회귀와 위험 추가 행동을 검토하고, Q4_K_M을 우선 Android 후보로 둘지 결정합니다.
+6. PTQ 전후 동일 gate의 집계 비교는 완료했습니다. Q4_K_M Macro F1 변화는 -0.0048, Q8_0은 -0.0119이며 고영향 완전 일치율은 세 조건 모두 0%입니다. 사례별 PTQ 출력 보존이 없어 회귀 귀속은 보류 상태이며, 상세는 `evaluation/docs/QWEN35_2B_PTQ_REGRESSION_REVIEW_v0.1.md`에 기록했습니다.
 7. PTQ에서만 발생한 회귀가 확인될 때 QAT 파일럿으로 이동합니다. 현재는 학습을 시작하지 않았으며, 준비 범위와 시작 조건은 `evaluation/docs/QAT_PILOT_READINESS_v0.1.md`에 기록했습니다. QAT가 FP16 자체 오류를 해결한다고 가정하지 않습니다.
 8. 최종 후보가 좁혀진 뒤 S24 Ultra에서 로딩·반복 추론·메모리·지연·발열을 측정합니다.
 

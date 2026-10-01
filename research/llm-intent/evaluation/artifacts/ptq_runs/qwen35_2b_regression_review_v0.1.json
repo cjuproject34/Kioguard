@@ -1,0 +1,45 @@
+{
+  "experiment_id": "PTQ-QWEN35-2B-REGRESSION-REVIEW-01",
+  "status": "PENDING_CASE_LEVEL_ATTRIBUTION",
+  "model_id": "Qwen/Qwen3.5-2B",
+  "prompt_version": "v3.1",
+  "gate_cases": 20,
+  "baseline": {
+    "precision": "float16",
+    "macro_intent_f1": 0.4741496598639456,
+    "contract_valid_rate": 0.9,
+    "exact_semantic_match_rate": 0.15,
+    "fallback_exact_rate": 0.8,
+    "high_impact_exact_rate": 0.0,
+    "dangerous_extra_action_cases": 2,
+    "must_not_violation_cases": 1
+  },
+  "variants": {
+    "Q4_K_M": {
+      "macro_intent_f1_delta": -0.004761904761904744,
+      "contract_valid_rate_delta": 0.0,
+      "exact_semantic_match_rate_delta": 0.0,
+      "fallback_exact_rate_delta": 0.05,
+      "high_impact_exact_rate_delta": 0.0,
+      "dangerous_extra_action_cases_delta": -1,
+      "must_not_violation_cases_delta": -1,
+      "case_level_outputs_committed": false
+    },
+    "Q8_0": {
+      "macro_intent_f1_delta": -0.01190476190476194,
+      "contract_valid_rate_delta": 0.0,
+      "exact_semantic_match_rate_delta": 0.0,
+      "fallback_exact_rate_delta": 0.05,
+      "high_impact_exact_rate_delta": 0.0,
+      "dangerous_extra_action_cases_delta": 0,
+      "must_not_violation_cases_delta": 0,
+      "case_level_outputs_committed": false
+    }
+  },
+  "decision": {
+    "qat_started": false,
+    "reason": "Aggregate gate results do not show a PTQ-only safety regression, while FP16 and both PTQ variants have zero high-impact exact rate. Per-case attribution is required before QAT.",
+    "next_required_artifact": "FP16/Q4/Q8 case-level raw and normalized predictions with identical case_id values"
+  },
+  "source": "qwen35_2b_gate_v0.1.json and qwen35_2b_v3_1 FP16 diagnostic artifacts"
+}
