@@ -104,4 +104,3 @@ Q4_K_M과 Q8_0을 동일한 prompt v3.1·20건 gate로 CPU `llama-cli`에서 실
 
 
 
-
