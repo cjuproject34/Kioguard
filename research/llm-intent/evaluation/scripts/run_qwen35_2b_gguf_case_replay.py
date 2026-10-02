@@ -336,7 +336,13 @@ def run_variant(
                 "--simple-io",
             ]
             started = time.perf_counter()
-            proc = subprocess.run(command, text=True, capture_output=True)
+            proc = subprocess.run(
+                command,
+                text=True,
+                capture_output=True,
+                encoding="utf-8",
+                errors="replace",
+            )
             seconds = time.perf_counter() - started
             normalized, steps = normalize_stdout(proc.stdout, prompts[case_id])
             status = "SUCCESS" if proc.returncode == 0 else "ERROR"
