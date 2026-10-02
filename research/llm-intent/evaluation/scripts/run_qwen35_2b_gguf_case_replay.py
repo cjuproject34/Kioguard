@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import datetime as dt
 import hashlib
+import importlib.util
 import json
 import os
 import platform
@@ -58,9 +59,7 @@ def ensure_python_packages() -> None:
     required = ["huggingface_hub", "transformers", "sentencepiece"]
     missing = []
     for name in required:
-        try:
-            __import__(name)
-        except ImportError:
+        if importlib.util.find_spec(name) is None:
             missing.append(name)
     if missing:
         run(
@@ -165,40 +164,41 @@ def load_jsonl(path: Path) -> list[dict]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
-    from transformers import AutoTokenizer
+def render_qwen35_user_prompt(prompt: str, chat_template: str) -> str:
+    required_markers = (
+        "<|im_start|>user",
+        "<|im_end|>",
+        "<|im_start|>assistant",
+        "<think>\\n\\n</think>\\n\\n",
+    )
+    missing = [marker for marker in required_markers if marker not in chat_template]
+    if missing:
+        raise ValueError(f"Pinned Qwen3.5 chat template changed; missing markers: {missing}")
+    return (
+        "<|im_start|>user\n"
+        + prompt
+        + "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+    )
 
+
+def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
     gold_path = EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
     prompt_path = EVAL_ROOT / "prompts" / "prompt_v3_1_full.txt"
+    tokenizer_config_path = MODEL_ROOT / "tokenizer_config.json"
     cases = load_jsonl(gold_path)
     prompt_prefix = prompt_path.read_text(encoding="utf-8").strip() + "\n"
     prompt_hash = hashlib.sha256(prompt_prefix.encode("utf-8")).hexdigest()
-    tokenizer = AutoTokenizer.from_pretrained(
-        str(MODEL_ROOT),
-        local_files_only=True,
-        trust_remote_code=True,
-    )
+    tokenizer_config = json.loads(tokenizer_config_path.read_text(encoding="utf-8"))
+    chat_template = tokenizer_config.get("chat_template")
+    if not isinstance(chat_template, str):
+        raise ValueError(f"chat_template missing from {tokenizer_config_path}")
     rendered: dict[str, str] = {}
     for case in cases:
         payload = {"context": case["context"], "utterance": case["utterance"]}
         prompt = prompt_prefix + "\n입력:\n" + json.dumps(
             payload, ensure_ascii=False, separators=(",", ":")
         )
-        messages = [{"role": "user", "content": prompt}]
-        try:
-            text = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=False,
-            )
-        except TypeError:
-            text = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-        rendered[case["case_id"]] = text
+        rendered[case["case_id"]] = render_qwen35_user_prompt(prompt, chat_template)
     return cases, rendered, prompt_hash
 
 
