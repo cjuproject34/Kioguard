@@ -17,17 +17,35 @@ from pathlib import Path
 
 
 MODEL_ID = "Qwen/Qwen3.5-2B"
+INTENTS = {
+    "SELECT", "MODIFY", "FULFILLMENT", "PAYMENT_METHOD", "RECEIPT",
+    "BENEFIT_CONTROL", "NAVIGATE", "CANCEL", "GUIDE", "INFO",
+    "UI_CONTROL", "HELP", "COMMIT_REQUEST", "RESET",
+}
+FALLBACKS = {
+    "ASK_SCREEN_TARGET", "ASK_GUIDANCE_NEED", "ASK_TARGET", "ASK_CONTEXT",
+    "ASK_REFERENCE", "ASK_INPUT_REPEAT", "ASK_SCOPE", "OUT_OF_SCOPE", "NO_ACTION",
+}
+REQUEST_KEYS = {"request_id", "intent", "target", "slots", "condition", "depends_on"}
 MODEL_REVISION = "15852e8c16360a2fea060d615a32b45270f8a8fc"
 LLAMA_COMMIT = "b04642061d183dff8504127dfbee1c1a8352682c"
 SEED = 20260930
 MAX_NEW_TOKENS = 220
 CONTEXT_SIZE = 8192
 THREADS = int(os.environ.get("KIOGUARD_THREADS", "2"))
-EXPERIMENT_ID = os.environ.get("KIOGUARD_EXPERIMENT_ID", "QWEN35_2B_GGUF_CASE_REPLAY_V2")
+PROMPT_VERSION = os.environ.get("KIOGUARD_PROMPT_VERSION", "v3.2")
+EXPERIMENT_ID = os.environ.get("KIOGUARD_EXPERIMENT_ID", "QWEN35_2B_GGUF_CASE_REPLAY_V3")
 
 SCRIPT_PATH = Path(__file__).resolve()
 REPO_ROOT = SCRIPT_PATH.parents[4]
 EVAL_ROOT = REPO_ROOT / "research" / "llm-intent" / "evaluation"
+DEFAULT_PROMPT_NAME = f"prompt_{PROMPT_VERSION.replace('.', '_')}_full.txt"
+PROMPT_PATH = Path(
+    os.environ.get(
+        "KIOGUARD_PROMPT_PATH",
+        str(EVAL_ROOT / "prompts" / DEFAULT_PROMPT_NAME),
+    )
+)
 WORK_ROOT = Path(os.environ.get("KIOGUARD_WORK_ROOT", "/content/qwen35_2b_case_replay"))
 OUTPUT_ROOT = Path(
     os.environ.get(
@@ -184,7 +202,7 @@ def render_qwen35_user_prompt(prompt: str, chat_template: str) -> str:
 
 def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
     gold_path = EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
-    prompt_path = EVAL_ROOT / "prompts" / "prompt_v3_1_full.txt"
+    prompt_path = PROMPT_PATH
     tokenizer_config_path = MODEL_ROOT / "tokenizer_config.json"
     cases = load_jsonl(gold_path)
     prompt_prefix = prompt_path.read_text(encoding="utf-8").strip() + "\n"
@@ -246,8 +264,51 @@ def contract_validation_error(text: str) -> str | None:
         return f"invalid_json:{exc.msg}"
     if not isinstance(value, dict):
         return "top_level_not_object"
-    if not isinstance(value.get("requests"), list):
+    if set(value) != {"requests", "fallback"}:
+        return "top_level_keys_invalid"
+    requests = value.get("requests")
+    if not isinstance(requests, list):
         return "requests_not_list"
+    fallback = value.get("fallback")
+    if fallback is not None:
+        if not isinstance(fallback, dict):
+            return "fallback_not_object_or_null"
+        if set(fallback) - {"type", "field"}:
+            return "fallback_extra_keys"
+        if fallback.get("type") not in FALLBACKS:
+            return "fallback_type_invalid"
+        if "field" in fallback and not isinstance(fallback["field"], str):
+            return "fallback_field_invalid"
+
+    seen: set[str] = set()
+    for index, request in enumerate(requests):
+        if not isinstance(request, dict):
+            return f"request_{index}_not_object"
+        if set(request) != REQUEST_KEYS:
+            return f"request_{index}_keys_invalid"
+        if request.get("intent") not in INTENTS:
+            return f"request_{index}_intent_invalid"
+        target = request.get("target")
+        if target is not None and not isinstance(target, str):
+            return f"request_{index}_target_invalid"
+        if not isinstance(request.get("slots"), dict):
+            return f"request_{index}_slots_invalid"
+        request_id = request.get("request_id")
+        expected_id = f"r{index + 1}"
+        if request_id != expected_id:
+            return f"request_{index}_id_must_be_{expected_id}"
+        depends_on = request.get("depends_on")
+        if depends_on is not None and depends_on not in seen:
+            return f"request_{index}_depends_on_invalid"
+        condition = request.get("condition")
+        if condition is not None:
+            if not isinstance(condition, dict):
+                return f"request_{index}_condition_invalid"
+            if set(condition) != {"state_key", "operator", "value"}:
+                return f"request_{index}_condition_keys_invalid"
+            if condition.get("operator") not in {"EQ", "NE", "IN", "NOT_IN"}:
+                return f"request_{index}_condition_operator_invalid"
+        seen.add(request_id)
     return None
 
 
@@ -444,7 +505,7 @@ def run_variant(
         "model_path": str(model_path),
         "model_bytes": model_path.stat().st_size,
         "model_sha256": file_sha256(model_path),
-        "prompt_version": "v3.1",
+        "prompt_version": PROMPT_VERSION,
         "prompt_sha256": prompt_hash,
         "case_count": len(cases),
         "prediction_rows": len(saved),
