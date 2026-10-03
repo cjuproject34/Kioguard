@@ -1,45 +1,89 @@
 {
   "experiment_id": "PTQ-QWEN35-2B-REGRESSION-REVIEW-01",
-  "status": "PENDING_CASE_LEVEL_ATTRIBUTION",
+  "status": "COMPLETE",
+  "valid_run_id": "QWEN35_2B_GGUF_CASE_REPLAY_V2",
+  "invalidated_run_id": "QWEN35_2B_GGUF_CASE_REPLAY_V1",
+  "invalidated_run_reason": "llama-cli interactive banner and incomplete thinking trace were scored as predictions",
   "model_id": "Qwen/Qwen3.5-2B",
+  "model_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
   "prompt_version": "v3.1",
   "gate_cases": 20,
+  "execution": {
+    "successful_cases_per_variant": 20,
+    "strict_json_rate": 1,
+    "llama_commit": "b04642061d183dff8504127dfbee1c1a8352682c",
+    "gpu_layers": 0
+  },
   "baseline": {
-    "precision": "float16",
-    "macro_intent_f1": 0.4741496598639456,
-    "contract_valid_rate": 0.9,
-    "exact_semantic_match_rate": 0.15,
-    "fallback_exact_rate": 0.8,
-    "high_impact_exact_rate": 0.0,
+    "precision": "F16",
+    "model_bytes": 3897387936,
+    "mean_generation_seconds": 138.69175770080037,
+    "macro_intent_f1": 0.39081632653061227,
+    "contract_valid_rate": 0.8,
+    "full_exact_rate": 0.15,
+    "fallback_exact_rate": 0.75,
+    "high_impact_full_exact_rate": 0,
     "dangerous_extra_action_cases": 2,
     "must_not_violation_cases": 1
   },
   "variants": {
     "Q4_K_M": {
-      "macro_intent_f1_delta": -0.004761904761904744,
-      "contract_valid_rate_delta": 0.0,
-      "exact_semantic_match_rate_delta": 0.0,
-      "fallback_exact_rate_delta": 0.05,
-      "high_impact_exact_rate_delta": 0.0,
-      "dangerous_extra_action_cases_delta": -1,
-      "must_not_violation_cases_delta": -1,
-      "case_level_outputs_committed": false
+      "model_bytes": 1312164768,
+      "size_reduction_vs_f16": 0.6633220019286271,
+      "mean_generation_seconds": 96.55999205049993,
+      "generation_time_reduction_vs_f16": 0.3037798810019502,
+      "macro_intent_f1": 0.3122448979591837,
+      "macro_intent_f1_delta": -0.07857142857142857,
+      "contract_valid_rate": 0.75,
+      "contract_valid_rate_delta": -0.05,
+      "full_exact_rate": 0.1,
+      "full_exact_rate_delta": -0.05,
+      "fallback_exact_rate": 0.7,
+      "fallback_exact_rate_delta": -0.05,
+      "high_impact_full_exact_rate": 0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 1,
+      "case_level_outputs_committed": true
     },
     "Q8_0": {
-      "macro_intent_f1_delta": -0.01190476190476194,
-      "contract_valid_rate_delta": 0.0,
-      "exact_semantic_match_rate_delta": 0.0,
-      "fallback_exact_rate_delta": 0.05,
-      "high_impact_exact_rate_delta": 0.0,
-      "dangerous_extra_action_cases_delta": 0,
-      "must_not_violation_cases_delta": 0,
-      "case_level_outputs_committed": false
+      "model_bytes": 2076674976,
+      "size_reduction_vs_f16": 0.46716236358771346,
+      "mean_generation_seconds": 121.62743861379985,
+      "generation_time_reduction_vs_f16": 0.12303773035895438,
+      "macro_intent_f1": 0.39081632653061227,
+      "macro_intent_f1_delta": 0,
+      "contract_valid_rate": 0.8,
+      "contract_valid_rate_delta": 0,
+      "full_exact_rate": 0.15,
+      "full_exact_rate_delta": 0,
+      "fallback_exact_rate": 0.75,
+      "fallback_exact_rate_delta": 0,
+      "high_impact_full_exact_rate": 0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 1,
+      "case_level_outputs_committed": true
     }
+  },
+  "case_attribution": {
+    "common_failure_cases": 17,
+    "q4_only_regression_cases": 1,
+    "q4_only_regression_case_ids": [
+      "CH-CLR-01"
+    ],
+    "q8_only_regression_cases": 0,
+    "q4_recovery_cases": 0,
+    "q8_recovery_cases": 0
   },
   "decision": {
     "qat_started": false,
-    "reason": "Aggregate gate results do not show a PTQ-only safety regression, while FP16 and both PTQ variants have zero high-impact exact rate. Per-case attribution is required before QAT.",
-    "next_required_artifact": "FP16/Q4/Q8 case-level raw and normalized predictions with identical case_id values"
+    "behavior_parity_choice": "Q8_0",
+    "footprint_latency_choice": "Q4_K_M",
+    "production_ready": false,
+    "reason": "Q8_0 matches F16 in all reported metrics, while Q4_K_M introduces one case regression. All variants still fail the high-impact gate and share 17 failures, so base prompt/contract quality must improve before QAT or deployment."
   },
-  "source": "qwen35_2b_gate_v0.1.json and qwen35_2b_v3_1 FP16 diagnostic artifacts"
+  "sources": [
+    "qwen35_2b_gguf_case_replay_v2_aggregate.json",
+    "qwen35_2b_gguf_case_replay_v2_cases.json",
+    "run manifests and predictions from Google Drive experiment QWEN35_2B_GGUF_CASE_REPLAY_V2"
+  ]
 }

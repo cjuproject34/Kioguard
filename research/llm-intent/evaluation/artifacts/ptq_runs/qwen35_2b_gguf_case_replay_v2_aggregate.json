@@ -1,0 +1,433 @@
+{
+  "experiment_id": "QWEN35_2B_GGUF_CASE_REPLAY_V2",
+  "status": "COMPLETE",
+  "variants": {
+    "F16": {
+      "scorer_version": "2.0",
+      "cases": 20,
+      "prediction_rows": 20,
+      "missing_prediction_cases": 0,
+      "duplicate_prediction_ids": [],
+      "unknown_prediction_ids": [],
+      "prediction_rows_missing_case_id": 0,
+      "strict_json_rate": 1.0,
+      "normalized_json_rate": 1.0,
+      "contract_valid_rate": 0.8,
+      "request_count_exact_rate": 0.7,
+      "intent_multiset_exact_rate": 0.4,
+      "intent_order_exact_rate": 0.4,
+      "target_exact_rate": 0.35,
+      "slots_exact_rate": 0.2,
+      "condition_exact_rate": 0.7,
+      "depends_on_exact_rate": 0.7,
+      "fallback_exact_rate": 0.75,
+      "full_exact_rate": 0.15,
+      "macro_intent_f1": 0.39081632653061227,
+      "high_impact_full_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 1,
+      "intent_metrics": {
+        "SELECT": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5
+        },
+        "MODIFY": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "FULFILLMENT": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "PAYMENT_METHOD": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "RECEIPT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "BENEFIT_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "NAVIGATE": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715
+        },
+        "CANCEL": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4
+        },
+        "GUIDE": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "INFO": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "UI_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "HELP": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "COMMIT_REQUEST": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "RESET": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "baseline_note": "This decomposed v2 report supplements, and does not overwrite, score_predictions.py v1 results."
+    },
+    "Q4_K_M": {
+      "scorer_version": "2.0",
+      "cases": 20,
+      "prediction_rows": 20,
+      "missing_prediction_cases": 0,
+      "duplicate_prediction_ids": [],
+      "unknown_prediction_ids": [],
+      "prediction_rows_missing_case_id": 0,
+      "strict_json_rate": 1.0,
+      "normalized_json_rate": 1.0,
+      "contract_valid_rate": 0.75,
+      "request_count_exact_rate": 0.65,
+      "intent_multiset_exact_rate": 0.3,
+      "intent_order_exact_rate": 0.3,
+      "target_exact_rate": 0.3,
+      "slots_exact_rate": 0.2,
+      "condition_exact_rate": 0.65,
+      "depends_on_exact_rate": 0.65,
+      "fallback_exact_rate": 0.7,
+      "full_exact_rate": 0.1,
+      "macro_intent_f1": 0.3122448979591837,
+      "high_impact_full_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 1,
+      "intent_metrics": {
+        "SELECT": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4
+        },
+        "MODIFY": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "FULFILLMENT": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "PAYMENT_METHOD": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "RECEIPT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "BENEFIT_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "NAVIGATE": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715
+        },
+        "CANCEL": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4
+        },
+        "GUIDE": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "INFO": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "UI_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "HELP": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "COMMIT_REQUEST": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "RESET": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "baseline_note": "This decomposed v2 report supplements, and does not overwrite, score_predictions.py v1 results."
+    },
+    "Q8_0": {
+      "scorer_version": "2.0",
+      "cases": 20,
+      "prediction_rows": 20,
+      "missing_prediction_cases": 0,
+      "duplicate_prediction_ids": [],
+      "unknown_prediction_ids": [],
+      "prediction_rows_missing_case_id": 0,
+      "strict_json_rate": 1.0,
+      "normalized_json_rate": 1.0,
+      "contract_valid_rate": 0.8,
+      "request_count_exact_rate": 0.7,
+      "intent_multiset_exact_rate": 0.4,
+      "intent_order_exact_rate": 0.4,
+      "target_exact_rate": 0.35,
+      "slots_exact_rate": 0.2,
+      "condition_exact_rate": 0.7,
+      "depends_on_exact_rate": 0.7,
+      "fallback_exact_rate": 0.75,
+      "full_exact_rate": 0.15,
+      "macro_intent_f1": 0.39081632653061227,
+      "high_impact_full_exact_rate": 0.0,
+      "dangerous_extra_action_cases": 2,
+      "must_not_violation_cases": 1,
+      "intent_metrics": {
+        "SELECT": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5
+        },
+        "MODIFY": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "FULFILLMENT": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "PAYMENT_METHOD": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "RECEIPT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "BENEFIT_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "NAVIGATE": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715
+        },
+        "CANCEL": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.3333333333333333,
+          "recall": 0.5,
+          "f1": 0.4
+        },
+        "GUIDE": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "INFO": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "UI_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "HELP": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "COMMIT_REQUEST": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "RESET": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "baseline_note": "This decomposed v2 report supplements, and does not overwrite, score_predictions.py v1 results."
+    }
+  },
+  "case_attribution": {
+    "common_failure_cases": 17,
+    "q4_only_regression_cases": 1,
+    "q8_only_regression_cases": 0,
+    "q4_recovery_cases": 0,
+    "q8_recovery_cases": 0
+  }
+}
