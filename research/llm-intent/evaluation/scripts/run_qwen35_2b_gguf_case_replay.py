@@ -419,6 +419,7 @@ def run_variant(
     scorer_path = variant_dir / "predictions.jsonl"
     completed = read_completed(scorer_path)
     log(f"{name}: resume from {len(completed)}/{len(cases)} completed cases")
+    fail_fast = not completed
     generation_times = [
         float(row["generation_seconds"])
         for row in completed.values()
@@ -505,11 +506,12 @@ def run_variant(
             if status == "SUCCESS":
                 generation_times.append(seconds)
             log(f"{name} [{index}/{len(cases)}] {case_id} {status} {seconds:.2f}s")
-            if status != "SUCCESS":
+            if status != "SUCCESS" and fail_fast:
                 raise RuntimeError(
-                    f"{name} {case_id} produced no valid requests JSON "
+                    f"{name} first case {case_id} produced no valid requests JSON "
                     f"(returncode={proc.returncode}, validation_error={validation_error})"
                 )
+            fail_fast = False
     finally:
         raw_handle.close()
         normalized_handle.close()
