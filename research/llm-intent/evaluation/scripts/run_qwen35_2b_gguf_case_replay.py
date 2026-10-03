@@ -46,6 +46,12 @@ PROMPT_PATH = Path(
         str(EVAL_ROOT / "prompts" / DEFAULT_PROMPT_NAME),
     )
 )
+SCHEMA_PATH = Path(
+    os.environ.get(
+        "KIOGUARD_JSON_SCHEMA_PATH",
+        str(EVAL_ROOT / "prompts" / "intent_contract.schema.json"),
+    )
+)
 WORK_ROOT = Path(os.environ.get("KIOGUARD_WORK_ROOT", "/content/qwen35_2b_case_replay"))
 OUTPUT_ROOT = Path(
     os.environ.get(
@@ -426,6 +432,8 @@ def run_variant(
                 "--single-turn",
                 "--reasoning-budget",
                 "0",
+                "--json-schema-file",
+                str(SCHEMA_PATH),
                 "--color",
                 "off",
                 "--simple-io",
@@ -507,6 +515,8 @@ def run_variant(
         "model_sha256": file_sha256(model_path),
         "prompt_version": PROMPT_VERSION,
         "prompt_sha256": prompt_hash,
+        "json_schema_path": str(SCHEMA_PATH),
+        "json_schema_sha256": file_sha256(SCHEMA_PATH),
         "case_count": len(cases),
         "prediction_rows": len(saved),
         "successful_cases": sum(row.get("status") == "SUCCESS" for row in saved),

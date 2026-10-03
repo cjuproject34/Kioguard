@@ -53,12 +53,21 @@ def test_request_order_and_dependency_are_checked():
     assert runner.contract_validation_error(output([request(depends_on="r9")])) == "request_0_depends_on_invalid"
 
 
+def test_json_schema_requires_the_complete_request_contract():
+    schema = json.loads(runner.SCHEMA_PATH.read_text(encoding="utf-8"))
+    request_schema = schema["properties"]["requests"]["items"]
+    assert set(request_schema["required"]) == runner.REQUEST_KEYS
+    assert request_schema["additionalProperties"] is False
+    assert set(request_schema["properties"]["intent"]["enum"]) == runner.INTENTS
+
+
 if __name__ == "__main__":
     tests = [
         test_valid_request_and_fallback_only,
         test_fallback_type_cannot_be_an_intent,
         test_complete_contract_is_required,
         test_request_order_and_dependency_are_checked,
+        test_json_schema_requires_the_complete_request_contract,
     ]
     for test in tests:
         test()
