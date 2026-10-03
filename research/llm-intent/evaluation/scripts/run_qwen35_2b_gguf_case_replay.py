@@ -23,6 +23,7 @@ SEED = 20260930
 MAX_NEW_TOKENS = 220
 CONTEXT_SIZE = 8192
 THREADS = int(os.environ.get("KIOGUARD_THREADS", "2"))
+EXPERIMENT_ID = os.environ.get("KIOGUARD_EXPERIMENT_ID", "QWEN35_2B_GGUF_CASE_REPLAY_V2")
 
 SCRIPT_PATH = Path(__file__).resolve()
 REPO_ROOT = SCRIPT_PATH.parents[4]
@@ -31,7 +32,7 @@ WORK_ROOT = Path(os.environ.get("KIOGUARD_WORK_ROOT", "/content/qwen35_2b_case_r
 OUTPUT_ROOT = Path(
     os.environ.get(
         "KIOGUARD_OUTPUT_ROOT",
-        "/content/drive/MyDrive/KioGuard/experiments/QWEN35_2B_GGUF_CASE_REPLAY_V1",
+        f"/content/drive/MyDrive/KioGuard/experiments/{EXPERIMENT_ID}",
     )
 )
 LLAMA_ROOT = Path(os.environ.get("KIOGUARD_LLAMA_ROOT", "/content/llama.cpp"))
@@ -205,6 +206,18 @@ def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
 ANSI_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 
 
+def extract_contract_json(text: str) -> str | None:
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        try:
+            value, _ = decoder.raw_decode(text[match.start() :])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and isinstance(value.get("requests"), list):
+            return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    return None
+
+
 def normalize_stdout(raw: str, rendered_prompt: str) -> tuple[str, list[str]]:
     text = ANSI_RE.sub("", raw).strip()
     steps: list[str] = []
@@ -219,7 +232,23 @@ def normalize_stdout(raw: str, rendered_prompt: str) -> tuple[str, list[str]]:
     if fence:
         text = fence.group(1).strip()
         steps.append("markdown_code_fence_removed")
+    contract_json = extract_contract_json(text)
+    if contract_json is not None:
+        text = contract_json
+        steps.append("contract_json_extracted")
     return text, steps
+
+
+def contract_validation_error(text: str) -> str | None:
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError as exc:
+        return f"invalid_json:{exc.msg}"
+    if not isinstance(value, dict):
+        return "top_level_not_object"
+    if not isinstance(value.get("requests"), list):
+        return "requests_not_list"
+    return None
 
 
 def read_completed(path: Path) -> dict[str, dict]:
@@ -333,6 +362,11 @@ def run_variant(
                 "-ngl",
                 "0",
                 "--no-display-prompt",
+                "--single-turn",
+                "--reasoning-budget",
+                "0",
+                "--color",
+                "off",
                 "--simple-io",
             ]
             started = time.perf_counter()
@@ -345,7 +379,8 @@ def run_variant(
             )
             seconds = time.perf_counter() - started
             normalized, steps = normalize_stdout(proc.stdout, prompts[case_id])
-            status = "SUCCESS" if proc.returncode == 0 else "ERROR"
+            validation_error = contract_validation_error(normalized)
+            status = "SUCCESS" if proc.returncode == 0 and validation_error is None else "ERROR"
             base = {
                 "case_id": case_id,
                 "status": status,
@@ -362,11 +397,13 @@ def run_variant(
                 **base,
                 "normalized_output": normalized,
                 "normalization_steps": steps,
+                "validation_error": validation_error,
             }
             scorer_row = {
                 **base,
                 "raw_output": normalized,
                 "normalization_steps": steps,
+                "validation_error": validation_error,
             }
             for handle, row in (
                 (raw_handle, raw_row),
@@ -378,6 +415,11 @@ def run_variant(
             if status == "SUCCESS":
                 generation_times.append(seconds)
             log(f"{name} [{index}/{len(cases)}] {case_id} {status} {seconds:.2f}s")
+            if status != "SUCCESS":
+                raise RuntimeError(
+                    f"{name} {case_id} produced no valid requests JSON "
+                    f"(returncode={proc.returncode}, validation_error={validation_error})"
+                )
     finally:
         raw_handle.close()
         normalized_handle.close()
@@ -393,7 +435,7 @@ def run_variant(
         for row in saved:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
     manifest = {
-        "experiment_id": "QWEN35_2B_GGUF_CASE_REPLAY_V1",
+        "experiment_id": EXPERIMENT_ID,
         "created_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "variant": name,
         "model_id": MODEL_ID,
@@ -484,7 +526,7 @@ def build_comparison() -> None:
         encoding="utf-8",
     )
     aggregate = {
-        "experiment_id": "QWEN35_2B_GGUF_CASE_REPLAY_V1",
+        "experiment_id": EXPERIMENT_ID,
         "status": "COMPLETE",
         "variants": summaries,
         "case_attribution": {
