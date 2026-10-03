@@ -46,12 +46,6 @@ PROMPT_PATH = Path(
         str(EVAL_ROOT / "prompts" / DEFAULT_PROMPT_NAME),
     )
 )
-SCHEMA_PATH = Path(
-    os.environ.get(
-        "KIOGUARD_JSON_SCHEMA_PATH",
-        str(EVAL_ROOT / "prompts" / "intent_contract.schema.json"),
-    )
-)
 WORK_ROOT = Path(os.environ.get("KIOGUARD_WORK_ROOT", "/content/qwen35_2b_case_replay"))
 OUTPUT_ROOT = Path(
     os.environ.get(
@@ -242,6 +236,33 @@ def extract_contract_json(text: str) -> str | None:
     return None
 
 
+def repair_missing_nullable_request_fields(text: str) -> tuple[str, list[str]]:
+    """Fill only omitted request fields whose contract value is explicitly null.
+
+    The model occasionally leaves out condition or depends_on even though their
+    absence has the same meaning as null. No intent, target, slot, dependency, or
+    condition value is inferred here.
+    """
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError:
+        return text, []
+    requests = value.get("requests") if isinstance(value, dict) else None
+    if not isinstance(requests, list):
+        return text, []
+    repairs: list[str] = []
+    for index, request in enumerate(requests):
+        if not isinstance(request, dict):
+            continue
+        for key in ("condition", "depends_on"):
+            if key not in request:
+                request[key] = None
+                repairs.append(f"request_{index}_{key}_defaulted_null")
+    if not repairs:
+        return text, []
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":")), repairs
+
+
 def normalize_stdout(raw: str, rendered_prompt: str) -> tuple[str, list[str]]:
     text = ANSI_RE.sub("", raw).strip()
     steps: list[str] = []
@@ -260,6 +281,8 @@ def normalize_stdout(raw: str, rendered_prompt: str) -> tuple[str, list[str]]:
     if contract_json is not None:
         text = contract_json
         steps.append("contract_json_extracted")
+    text, repairs = repair_missing_nullable_request_fields(text)
+    steps.extend(repairs)
     return text, steps
 
 
@@ -432,8 +455,6 @@ def run_variant(
                 "--single-turn",
                 "--reasoning-budget",
                 "0",
-                "--json-schema-file",
-                str(SCHEMA_PATH),
                 "--color",
                 "off",
                 "--simple-io",
@@ -515,8 +536,7 @@ def run_variant(
         "model_sha256": file_sha256(model_path),
         "prompt_version": PROMPT_VERSION,
         "prompt_sha256": prompt_hash,
-        "json_schema_path": str(SCHEMA_PATH),
-        "json_schema_sha256": file_sha256(SCHEMA_PATH),
+        "nullable_contract_field_repair": True,
         "case_count": len(cases),
         "prediction_rows": len(saved),
         "successful_cases": sum(row.get("status") == "SUCCESS" for row in saved),

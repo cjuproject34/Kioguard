@@ -53,12 +53,19 @@ def test_request_order_and_dependency_are_checked():
     assert runner.contract_validation_error(output([request(depends_on="r9")])) == "request_0_depends_on_invalid"
 
 
-def test_json_schema_requires_the_complete_request_contract():
-    schema = json.loads(runner.SCHEMA_PATH.read_text(encoding="utf-8"))
-    request_schema = schema["properties"]["requests"]["items"]
-    assert set(request_schema["required"]) == runner.REQUEST_KEYS
-    assert request_schema["additionalProperties"] is False
-    assert set(request_schema["properties"]["intent"]["enum"]) == runner.INTENTS
+def test_missing_nullable_request_fields_are_repaired_without_semantic_inference():
+    incomplete = request()
+    incomplete.pop("condition")
+    incomplete.pop("depends_on")
+    repaired, steps = runner.repair_missing_nullable_request_fields(output([incomplete]))
+    assert runner.contract_validation_error(repaired) is None
+    assert steps == [
+        "request_0_condition_defaulted_null",
+        "request_0_depends_on_defaulted_null",
+    ]
+    repaired_request = json.loads(repaired)["requests"][0]
+    assert repaired_request["intent"] == incomplete["intent"]
+    assert repaired_request["slots"] == incomplete["slots"]
 
 
 if __name__ == "__main__":
@@ -67,7 +74,7 @@ if __name__ == "__main__":
         test_fallback_type_cannot_be_an_intent,
         test_complete_contract_is_required,
         test_request_order_and_dependency_are_checked,
-        test_json_schema_requires_the_complete_request_contract,
+        test_missing_nullable_request_fields_are_repaired_without_semantic_inference,
     ]
     for test in tests:
         test()
