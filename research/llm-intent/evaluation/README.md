@@ -1,6 +1,6 @@
 # KioGuard 의도분류 평가 데이터·모델 비교
 
-기준일: 2026-09-28  
+기준일: 2026-10-05
 상태: **개발용 초안. 사람 검수 전이며 독립 test가 아님**
 
 ## 이번 자료의 목적
@@ -129,6 +129,8 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 
 - `artifacts/gate_error_audit/README.md`: 원본 보존 상태와 Gemma 2 사례별 오류 요약
 - `scripts/audit_gate_errors.py`: 계약 무효 출력의 내부 의미·안전 오류를 분리하는 보조 진단기
+- `scripts/run_qwen35_2b_gguf_case_replay.py`: Qwen3.5 2B FP16·Q4_K_M·Q8_0 사례별 재생 실행기
+- `scripts/run_gemma4_e2b_gguf_case_replay.py`: Gemma 4 E2B BF16·Q4_K_M·Q8_0 로컬 사례별 재생 실행기
 - `prompts/prompt_v3_1_full.txt`: context 오인, 위험 행동, request 내부 fallback을 보강한 재평가 prompt
 - `notebooks/KioGuard_FP16_Gate_Rerun_v3_1.ipynb`: 상위 3개 모델의 새 20문장 gate 실행 노트북
 - `artifacts/gate_error_audit/qwen35_2b_v3_1/`: Qwen3.5 2B prompt v3.1 원출력, 채점, 사례별 진단
@@ -139,6 +141,8 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 
 - `docs/CPU_AUDIT_AND_NEXT_STEPS.md`
 - `docs/PTQ_QAT_EXPERIMENT_PLAN.md`
+- `docs/QWEN35_2B_FP16_Q4_Q8_COMPARISON_v0.2.md`
+- `docs/GEMMA4_E2B_BF16_Q4_Q8_COMPARISON_v0.1.md`
 - `configs/router_policy_v1.json`
 
 ## 현재 한계

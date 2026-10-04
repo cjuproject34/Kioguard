@@ -1,0 +1,45 @@
+{
+  "artifact_version": "1.0",
+  "created_at": "2026-10-05",
+  "model_id": "google/gemma-4-E2B-it",
+  "model_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+  "conversion_environment": "local Windows CPU",
+  "llama_cpp_commit": "7fe450e19",
+  "files": {
+    "BF16": {
+      "bytes": 9311305152,
+      "gib": 8.672,
+      "sha256": "79bd7b9ee0b3cfb736fdbb32de560f3bd97e68bbebfbecea6b5f7262bde34855",
+      "successful_cases": 17,
+      "mean_generation_seconds": 48.976313541176374
+    },
+    "Q4_K_M": {
+      "bytes": 3427880384,
+      "gib": 3.192,
+      "sha256": "bf3ba4103f292b1fc4c46b6f5b8e61dd53dd00558fe57334152635c5ec255bf1",
+      "size_reduction_vs_bf16": 0.6318582274,
+      "successful_cases": 19,
+      "mean_generation_seconds": 36.04204742105197
+    },
+    "Q8_0": {
+      "bytes": 4967497152,
+      "gib": 4.626,
+      "sha256": "4b9e6317389d66a2a8d6fb4a6fd1dda89915906752a8e3807a1c4014dd3133b4",
+      "size_reduction_vs_bf16": 0.4665090370,
+      "successful_cases": 17,
+      "mean_generation_seconds": 55.38883730000046
+    }
+  },
+  "evaluation": {
+    "experiment_id": "GEMMA4_E2B_GGUF_CASE_REPLAY_V1",
+    "cases_per_variant": 20,
+    "prompt_version": "v3.2",
+    "prompt_sha256": "d58f06ac80129d427ed75b0ffab9e2f88f89f90d5175a5fba683f06e3ded308b",
+    "seed": 20260930,
+    "gpu_layers": 0,
+    "context_size": 4096,
+    "max_new_tokens": 220,
+    "status": "COMPLETE"
+  },
+  "note": "Model binaries are intentionally not committed. Hashes identify the locally generated artifacts."
+}
