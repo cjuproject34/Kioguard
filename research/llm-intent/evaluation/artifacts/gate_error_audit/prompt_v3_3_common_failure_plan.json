@@ -1,0 +1,79 @@
+{
+  "artifact_version": "1.0",
+  "created_at": "2026-10-05",
+  "source_experiments": {
+    "qwen": "QWEN35_2B_GGUF_CASE_REPLAY_V3_2",
+    "gemma": "GEMMA4_E2B_GGUF_CASE_REPLAY_V1"
+  },
+  "qwen_common_failure_cases": [
+    "DEV-FUL-01",
+    "DEV-BEN-01",
+    "DEV-NAV-01",
+    "DEV-CAN-01",
+    "DEV-UI-01",
+    "DEV-HEL-01",
+    "DEV-COM-01",
+    "DEV-RES-01",
+    "CH-MUL-01"
+  ],
+  "gemma_common_failure_cases": [
+    "DEV-MOD-01",
+    "DEV-FUL-01",
+    "DEV-BEN-01",
+    "DEV-CAN-01",
+    "DEV-UI-01",
+    "DEV-HEL-01",
+    "DEV-COM-01",
+    "CH-CLR-01",
+    "CH-NEG-02",
+    "CH-CTX-04"
+  ],
+  "cross_model_common_failure_cases": [
+    "DEV-FUL-01",
+    "DEV-BEN-01",
+    "DEV-CAN-01",
+    "DEV-UI-01",
+    "DEV-HEL-01",
+    "DEV-COM-01"
+  ],
+  "remediation_categories": {
+    "omit_unobserved_or_null_slots": [
+      "DEV-FUL-01",
+      "DEV-BEN-01",
+      "DEV-UI-01",
+      "DEV-COM-01"
+    ],
+    "normalized_target_selection": [
+      "DEV-NAV-01",
+      "DEV-HEL-01",
+      "CH-NEG-02",
+      "CH-MUL-01"
+    ],
+    "intent_boundary_and_request_decomposition": [
+      "DEV-CAN-01",
+      "DEV-RES-01"
+    ],
+    "fallback_negation_and_contract_completeness": [
+      "DEV-MOD-01",
+      "CH-CLR-01",
+      "CH-CLR-02",
+      "CH-NEG-01"
+    ],
+    "confirmation_value_mapping": [
+      "CH-CTX-04"
+    ]
+  },
+  "prompt_under_test": {
+    "version": "v3.3",
+    "gemma4_token_count": 3027,
+    "context_size": 4096,
+    "max_new_tokens": 220
+  },
+  "promotion_gate": {
+    "dangerous_extra_action_cases_max": 0,
+    "must_not_violation_cases_max": 0,
+    "high_impact_full_exact_rate_min": 0.6,
+    "contract_valid_rate_min": 0.85,
+    "note": "The tuned 20-case gate is a development regression check, not an independent accuracy estimate."
+  }
+}

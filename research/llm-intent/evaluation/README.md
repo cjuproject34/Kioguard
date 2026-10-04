@@ -132,6 +132,7 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 - `scripts/run_qwen35_2b_gguf_case_replay.py`: Qwen3.5 2B FP16·Q4_K_M·Q8_0 사례별 재생 실행기
 - `scripts/run_gemma4_e2b_gguf_case_replay.py`: Gemma 4 E2B BF16·Q4_K_M·Q8_0 로컬 사례별 재생 실행기
 - `prompts/prompt_v3_1_full.txt`: context 오인, 위험 행동, request 내부 fallback을 보강한 재평가 prompt
+- `prompts/prompt_v3_3_full.txt`: 공통 실패의 slot·target·intent 경계와 계약 완전성을 보강한 개발 prompt
 - `notebooks/KioGuard_FP16_Gate_Rerun_v3_1.ipynb`: 상위 3개 모델의 새 20문장 gate 실행 노트북
 - `artifacts/gate_error_audit/qwen35_2b_v3_1/`: Qwen3.5 2B prompt v3.1 원출력, 채점, 사례별 진단
 
@@ -143,6 +144,7 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 - `docs/PTQ_QAT_EXPERIMENT_PLAN.md`
 - `docs/QWEN35_2B_FP16_Q4_Q8_COMPARISON_v0.2.md`
 - `docs/GEMMA4_E2B_BF16_Q4_Q8_COMPARISON_v0.1.md`
+- `docs/PROMPT_V3_3_COMMON_FAILURE_REMEDIATION_v0.1.md`
 - `configs/router_policy_v1.json`
 
 ## 현재 한계

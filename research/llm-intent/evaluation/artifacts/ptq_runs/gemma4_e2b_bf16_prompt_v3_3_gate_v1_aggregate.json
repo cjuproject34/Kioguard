@@ -1,0 +1,149 @@
+{
+  "experiment_id": "GEMMA4_E2B_BF16_PROMPT_V3_3_GATE_V1",
+  "status": "COMPLETE",
+  "variants": {
+    "BF16": {
+      "scorer_version": "2.0",
+      "cases": 20,
+      "prediction_rows": 20,
+      "missing_prediction_cases": 0,
+      "duplicate_prediction_ids": [],
+      "unknown_prediction_ids": [],
+      "prediction_rows_missing_case_id": 0,
+      "strict_json_rate": 0.9,
+      "normalized_json_rate": 0.9,
+      "contract_valid_rate": 0.9,
+      "request_count_exact_rate": 0.9,
+      "intent_multiset_exact_rate": 0.85,
+      "intent_order_exact_rate": 0.85,
+      "target_exact_rate": 0.9,
+      "slots_exact_rate": 0.75,
+      "condition_exact_rate": 0.9,
+      "depends_on_exact_rate": 0.9,
+      "fallback_exact_rate": 0.9,
+      "full_exact_rate": 0.75,
+      "macro_intent_f1": 0.880952380952381,
+      "high_impact_full_exact_rate": 1.0,
+      "dangerous_extra_action_cases": 0,
+      "must_not_violation_cases": 0,
+      "intent_metrics": {
+        "SELECT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "MODIFY": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666
+        },
+        "FULFILLMENT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "PAYMENT_METHOD": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "RECEIPT": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "BENEFIT_CONTROL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "NAVIGATE": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "CANCEL": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        },
+        "GUIDE": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "INFO": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "UI_CONTROL": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "HELP": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "COMMIT_REQUEST": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "RESET": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "baseline_note": "This decomposed v2 report supplements, and does not overwrite, score_predictions.py v1 results."
+    }
+  },
+  "case_attribution": {
+    "common_failure_cases": 5
+  }
+}

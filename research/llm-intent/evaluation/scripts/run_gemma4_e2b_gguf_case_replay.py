@@ -89,8 +89,24 @@ def ensure_runtime() -> tuple[Path, dict[str, Path]]:
 
 
 def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
-    gold_path = EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
-    cases = load_jsonl(gold_path)
+    configured_paths = os.environ.get("KIOGUARD_GOLD_PATHS", "").strip()
+    if configured_paths:
+        gold_paths = [Path(value) for value in configured_paths.split(os.pathsep) if value]
+    else:
+        gold_paths = [
+            EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
+        ]
+    cases: list[dict] = []
+    seen_case_ids: set[str] = set()
+    for gold_path in gold_paths:
+        for case in load_jsonl(gold_path):
+            case_id = case.get("case_id")
+            if not isinstance(case_id, str):
+                raise ValueError(f"Case without string case_id in {gold_path}")
+            if case_id in seen_case_ids:
+                raise ValueError(f"Duplicate case_id across gold inputs: {case_id}")
+            seen_case_ids.add(case_id)
+            cases.append(case)
     if CASE_LIMIT > 0:
         cases = cases[:CASE_LIMIT]
     prompt_prefix = PROMPT_PATH.read_text(encoding="utf-8").strip() + "\n"
@@ -131,10 +147,15 @@ def repair_missing_nullable_request_fields(text: str) -> tuple[str, list[str]]:
         value = json.loads(text)
     except json.JSONDecodeError:
         return text, []
-    requests = value.get("requests") if isinstance(value, dict) else None
+    if not isinstance(value, dict):
+        return text, []
+    requests = value.get("requests")
     if not isinstance(requests, list):
         return text, []
     repairs: list[str] = []
+    if set(value) == {"requests"}:
+        value["fallback"] = None
+        repairs.append("top_level_fallback_defaulted_null")
     for index, request in enumerate(requests):
         if not isinstance(request, dict):
             continue
@@ -142,9 +163,9 @@ def repair_missing_nullable_request_fields(text: str) -> tuple[str, list[str]]:
             if key not in request:
                 request[key] = None
                 repairs.append(f"request_{index}_{key}_defaulted_null")
-    if repairs:
-        text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-    return text, repairs
+    if not repairs:
+        return text, []
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":")), repairs
 
 
 def normalize_stdout(raw: str) -> tuple[str, list[str]]:

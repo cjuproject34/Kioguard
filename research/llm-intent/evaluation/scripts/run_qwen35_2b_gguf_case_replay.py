@@ -35,6 +35,12 @@ CONTEXT_SIZE = 8192
 THREADS = int(os.environ.get("KIOGUARD_THREADS", "2"))
 PROMPT_VERSION = os.environ.get("KIOGUARD_PROMPT_VERSION", "v3.2")
 EXPERIMENT_ID = os.environ.get("KIOGUARD_EXPERIMENT_ID", "QWEN35_2B_GGUF_CASE_REPLAY_V3")
+CASE_LIMIT = int(os.environ.get("KIOGUARD_CASE_LIMIT", "0"))
+VARIANTS = tuple(
+    value.strip()
+    for value in os.environ.get("KIOGUARD_VARIANTS", "F16,Q4_K_M,Q8_0").split(",")
+    if value.strip()
+)
 
 SCRIPT_PATH = Path(__file__).resolve()
 REPO_ROOT = SCRIPT_PATH.parents[4]
@@ -201,10 +207,28 @@ def render_qwen35_user_prompt(prompt: str, chat_template: str) -> str:
 
 
 def load_cases_and_prompts() -> tuple[list[dict], dict[str, str], str]:
-    gold_path = EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
+    configured_paths = os.environ.get("KIOGUARD_GOLD_PATHS", "").strip()
+    if configured_paths:
+        gold_paths = [Path(value) for value in configured_paths.split(os.pathsep) if value]
+    else:
+        gold_paths = [
+            EVAL_ROOT / "artifacts" / "gate_error_audit" / "qwen35_2b_v3_1" / "gate_gold.jsonl"
+        ]
     prompt_path = PROMPT_PATH
     tokenizer_config_path = MODEL_ROOT / "tokenizer_config.json"
-    cases = load_jsonl(gold_path)
+    cases: list[dict] = []
+    seen_case_ids: set[str] = set()
+    for gold_path in gold_paths:
+        for case in load_jsonl(gold_path):
+            case_id = case.get("case_id")
+            if not isinstance(case_id, str):
+                raise ValueError(f"Case without string case_id in {gold_path}")
+            if case_id in seen_case_ids:
+                raise ValueError(f"Duplicate case_id across gold inputs: {case_id}")
+            seen_case_ids.add(case_id)
+            cases.append(case)
+    if CASE_LIMIT > 0:
+        cases = cases[:CASE_LIMIT]
     prompt_prefix = prompt_path.read_text(encoding="utf-8").strip() + "\n"
     prompt_hash = hashlib.sha256(prompt_prefix.encode("utf-8")).hexdigest()
     tokenizer_config = json.loads(tokenizer_config_path.read_text(encoding="utf-8"))
@@ -247,10 +271,15 @@ def repair_missing_nullable_request_fields(text: str) -> tuple[str, list[str]]:
         value = json.loads(text)
     except json.JSONDecodeError:
         return text, []
-    requests = value.get("requests") if isinstance(value, dict) else None
+    if not isinstance(value, dict):
+        return text, []
+    requests = value.get("requests")
     if not isinstance(requests, list):
         return text, []
     repairs: list[str] = []
+    if set(value) == {"requests"}:
+        value["fallback"] = None
+        repairs.append("top_level_fallback_defaulted_null")
     for index, request in enumerate(requests):
         if not isinstance(request, dict):
             continue
@@ -564,10 +593,9 @@ def bool_value(value: str) -> bool:
 
 
 def build_comparison() -> None:
-    variants = ["F16", "Q4_K_M", "Q8_0"]
     summaries = {}
     case_scores: dict[str, dict[str, dict]] = {}
-    for variant in variants:
+    for variant in VARIANTS:
         folder = OUTPUT_ROOT / variant.lower()
         summaries[variant] = json.loads(
             (folder / "scores" / "summary_v2.json").read_text(encoding="utf-8")
@@ -577,35 +605,27 @@ def build_comparison() -> None:
         ) as handle:
             case_scores[variant] = {row["case_id"]: row for row in csv.DictReader(handle)}
 
-    case_ids = list(case_scores["F16"])
+    baseline = VARIANTS[0]
+    case_ids = list(case_scores[baseline])
     rows = []
     for case_id in case_ids:
-        f16 = case_scores["F16"][case_id]
-        q4 = case_scores["Q4_K_M"][case_id]
-        q8 = case_scores["Q8_0"][case_id]
-        f16_exact = bool_value(f16["full_exact"])
-        q4_exact = bool_value(q4["full_exact"])
-        q8_exact = bool_value(q8["full_exact"])
-        rows.append(
-            {
-                "case_id": case_id,
-                "impact": f16["impact"],
-                "f16_full_exact": f16_exact,
-                "q4_full_exact": q4_exact,
-                "q8_full_exact": q8_exact,
-                "common_failure": not f16_exact and not q4_exact and not q8_exact,
-                "q4_only_regression": f16_exact and not q4_exact,
-                "q8_only_regression": f16_exact and not q8_exact,
-                "q4_recovery": not f16_exact and q4_exact,
-                "q8_recovery": not f16_exact and q8_exact,
-                "f16_mismatches": f16["mismatch_categories"],
-                "q4_mismatches": q4["mismatch_categories"],
-                "q8_mismatches": q8["mismatch_categories"],
-                "f16_contract_valid": bool_value(f16["contract_valid"]),
-                "q4_contract_valid": bool_value(q4["contract_valid"]),
-                "q8_contract_valid": bool_value(q8["contract_valid"]),
-            }
-        )
+        base_score = case_scores[baseline][case_id]
+        base_exact = bool_value(base_score["full_exact"])
+        row = {"case_id": case_id, "impact": base_score["impact"]}
+        exact_values = []
+        for variant in VARIANTS:
+            score = case_scores[variant][case_id]
+            exact = bool_value(score["full_exact"])
+            key = variant.lower()
+            exact_values.append(exact)
+            row[f"{key}_full_exact"] = exact
+            row[f"{key}_mismatches"] = score["mismatch_categories"]
+            row[f"{key}_contract_valid"] = bool_value(score["contract_valid"])
+            if variant != baseline:
+                row[f"{key}_regression"] = base_exact and not exact
+                row[f"{key}_recovery"] = not base_exact and exact
+        row["common_failure"] = not any(exact_values)
+        rows.append(row)
 
     fields = list(rows[0])
     with (OUTPUT_ROOT / "case_level_comparison.csv").open(
@@ -618,17 +638,16 @@ def build_comparison() -> None:
         json.dumps(rows, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    attribution = {"common_failure_cases": sum(row["common_failure"] for row in rows)}
+    for variant in VARIANTS[1:]:
+        key = variant.lower()
+        attribution[f"{key}_regression_cases"] = sum(row[f"{key}_regression"] for row in rows)
+        attribution[f"{key}_recovery_cases"] = sum(row[f"{key}_recovery"] for row in rows)
     aggregate = {
         "experiment_id": EXPERIMENT_ID,
         "status": "COMPLETE",
         "variants": summaries,
-        "case_attribution": {
-            "common_failure_cases": sum(row["common_failure"] for row in rows),
-            "q4_only_regression_cases": sum(row["q4_only_regression"] for row in rows),
-            "q8_only_regression_cases": sum(row["q8_only_regression"] for row in rows),
-            "q4_recovery_cases": sum(row["q4_recovery"] for row in rows),
-            "q8_recovery_cases": sum(row["q8_recovery"] for row in rows),
-        },
+        "case_attribution": attribution,
     }
     (OUTPUT_ROOT / "aggregate_comparison.json").write_text(
         json.dumps(aggregate, ensure_ascii=False, indent=2) + "\n",
@@ -650,7 +669,7 @@ def main() -> None:
 
     status_path = OUTPUT_ROOT / "run_status.json"
     try:
-        for variant in ("F16", "Q4_K_M", "Q8_0"):
+        for variant in VARIANTS:
             status_path.write_text(
                 json.dumps(
                     {

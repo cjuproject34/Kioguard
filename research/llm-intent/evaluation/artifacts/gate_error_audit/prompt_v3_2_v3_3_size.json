@@ -1,0 +1,30 @@
+{
+  "artifact_version": "1.0",
+  "created_at": "2026-10-05",
+  "tokenizer_model": "gemma-4-E2B-it-q8_0.gguf",
+  "tool": "llama-tokenize b11146",
+  "files": {
+    "v3.2": {
+      "path": "prompts/prompt_v3_2_full.txt",
+      "characters": 6875,
+      "utf8_bytes": 9195,
+      "sha256": "d58f06ac80129d427ed75b0ffab9e2f88f89f90d5175a5fba683f06e3ded308b",
+      "gemma4_tokens": 2407
+    },
+    "v3.3": {
+      "path": "prompts/prompt_v3_3_full.txt",
+      "characters": 8345,
+      "utf8_bytes": 11867,
+      "sha256": "b56fae38b33b819f1d9e054e35847d611a123dc60b1f056278a5c3447ef9466b",
+      "gemma4_tokens": 3027
+    }
+  },
+  "delta": {
+    "tokens": 620,
+    "relative_increase": 0.2575820523473203
+  },
+  "runtime_contract": {
+    "context_size": 4096,
+    "max_new_tokens": 220
+  }
+}

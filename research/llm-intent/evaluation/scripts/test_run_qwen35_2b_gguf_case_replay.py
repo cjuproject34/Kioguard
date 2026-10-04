@@ -68,6 +68,14 @@ def test_missing_nullable_request_fields_are_repaired_without_semantic_inference
     assert repaired_request["slots"] == incomplete["slots"]
 
 
+def test_missing_top_level_nullable_fallback_is_repaired():
+    incomplete = json.dumps({"requests": [request()]}, ensure_ascii=False)
+    repaired, steps = runner.repair_missing_nullable_request_fields(incomplete)
+    assert runner.contract_validation_error(repaired) is None
+    assert steps == ["top_level_fallback_defaulted_null"]
+    assert json.loads(repaired)["fallback"] is None
+
+
 if __name__ == "__main__":
     tests = [
         test_valid_request_and_fallback_only,
@@ -75,6 +83,7 @@ if __name__ == "__main__":
         test_complete_contract_is_required,
         test_request_order_and_dependency_are_checked,
         test_missing_nullable_request_fields_are_repaired_without_semantic_inference,
+        test_missing_top_level_nullable_fallback_is_repaired,
     ]
     for test in tests:
         test()
