@@ -145,6 +145,7 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 - `docs/QWEN35_2B_FP16_Q4_Q8_COMPARISON_v0.2.md`
 - `docs/GEMMA4_E2B_BF16_Q4_Q8_COMPARISON_v0.1.md`
 - `docs/PROMPT_V3_3_COMMON_FAILURE_REMEDIATION_v0.1.md`
+- `docs/ANDROID_S24_ON_DEVICE_BENCHMARK_GUIDE_v0.1.md`
 - `configs/router_policy_v1.json`
 
 ## 현재 한계
