@@ -140,6 +140,8 @@ CPU 전용 Colab 노트북은 `notebooks/KioGuard_CPU_Analysis_v1.ipynb`이다. 
 
 관련 문서:
 
+- `docs/KIOGUARD_INTENT_RESEARCH_PROGRESS_REPORT_2026-10-05.md`: baseline부터 PTQ, prompt v3.3, Android 준비까지의 근거 통합 보고서
+- `docs/KIOGUARD_INTENT_RESEARCH_PROGRESS_REPORT_2026-10-05.docx`: 팀 공유용 Word 보고서
 - `docs/CPU_AUDIT_AND_NEXT_STEPS.md`
 - `docs/PTQ_QAT_EXPERIMENT_PLAN.md`
 - `docs/QWEN35_2B_FP16_Q4_Q8_COMPARISON_v0.2.md`

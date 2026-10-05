@@ -1,0 +1,35 @@
+{
+  "artifact_version": "1.0",
+  "created_at": "2026-10-05",
+  "purpose": "Android benchmark candidate delivery provenance",
+  "models": [
+    {
+      "candidate_role": "compact_candidate",
+      "model_id": "Qwen/Qwen3.5-2B",
+      "model_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "quantization": "Q4_K_M",
+      "filename": "qwen35-2b-q4_k_m.gguf",
+      "bytes": 1312164768,
+      "sha256": "9ace65e67f4d3863729ad4f50ca97aedb734fcdbf6161656fc00028ba3ddf832",
+      "llama_cpp_commit_at_conversion": "b04642061d183dff8504127dfbee1c1a8352682c",
+      "drive_url": "https://drive.google.com/file/d/1s5soutguQn4auPdOD08HwS21Tc-UBALT/view",
+      "verification": "Colab source and Drive copy byte size and SHA-256 matched on 2026-10-05",
+      "git_storage": "binary intentionally not committed"
+    },
+    {
+      "candidate_role": "quality_preservation_candidate",
+      "model_id": "google/gemma-4-E2B-it",
+      "model_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+      "quantization": "Q8_0",
+      "filename": "gemma-4-E2B-it-q8_0.gguf",
+      "bytes": 4967497152,
+      "sha256": "4b9e6317389d66a2a8d6fb4a6fd1dda89915906752a8e3807a1c4014dd3133b4",
+      "llama_cpp_commit_at_conversion": "7fe450e19",
+      "drive_url": "https://drive.google.com/file/d/1cwoElzKDJXbeSw5IWX85gPT3oI2yev73/view",
+      "verification": "Hash matches artifacts/ptq_runs/gemma4_e2b_local_ptq_v1.json",
+      "git_storage": "binary intentionally not committed"
+    }
+  ],
+  "access_note": "Drive links require separately granted sharing permission.",
+  "measurement_note": "Delivery does not imply Android benchmark completion or model approval."
+}
