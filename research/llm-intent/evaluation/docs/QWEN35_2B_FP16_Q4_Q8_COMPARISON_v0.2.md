@@ -1,6 +1,5 @@
 # Qwen3.5 2B FP16·Q4·Q8 비교 v0.4
 
-작성일: 2026-10-04
 
 대상: Qwen/Qwen3.5-2B revision `15852e8c16360a2fea060d615a32b45270f8a8fc`, prompt v3.2, 공통 gate 20건
 
